@@ -1,16 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { PokemonsPage } from "./pages";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import "./App.css";
+import { PokemonsPage } from './pages';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<PokemonsPage />}></Route>
-      </Routes>
-    </BrowserRouter>
-  );
-}
+import './App.css';
+
+const App = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path='/' element={<PokemonsPage />}>
+        1234
+      </Route>
+    </Routes>
+  </BrowserRouter>
+);
 
 export default App;
