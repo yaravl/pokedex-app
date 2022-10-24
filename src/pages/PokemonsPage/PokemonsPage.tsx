@@ -1,20 +1,32 @@
 import React from 'react';
 
-import { useRequestPokemonQuery } from '../../utils/api/hooks';
+import { useRequestPokemonQueries } from '../../utils/api/hooks';
+
+import { Pokemon } from './Pokemon/Pokemon';
 
 export const PokemonsPage = () => {
-  const { data, isLoading, fetchPreviousPage, fetchNextPage } = useRequestPokemonQuery();
+  const [offset, setOffset] = React.useState(9);
+  const result = useRequestPokemonQueries({ offset });
 
-  if (isLoading) return <h1>Loading...</h1>;
-  console.log(data);
+  const isLoading = result.some((el) => el.isLoading);
+
+  React.useEffect(() => {
+    if (!isLoading) {
+      window.scrollTo({ top: window.innerHeight });
+    }
+  }, [isLoading]);
+
+  if (isLoading) return <h1>Loading</h1>;
+
   return (
-    <div>
+    <div className='container'>
       <h1>Pokemons Page</h1>
-      <div className='flex flex-wrap'>asd</div>
-      <button onClick={() => fetchPreviousPage()}>prev</button>
-      <button onClick={() => fetchNextPage()}>next</button>
+      <div className='grid grid-cols-3 gap-4'>
+        {result.map((pokemon: any, index: number) => (
+          <Pokemon key={index} pokemon={pokemon.data} />
+        ))}
+      </div>
+      <button onClick={() => setOffset(offset + 3)}>load more</button>
     </div>
   );
 };
-
-// TODO: 1:14 https://www.youtube.com/watch?v=23JL1zAKW-U&t=2639s&ab_channel=SIBERIACANCODE%F0%9F%A7%8A-Frontend

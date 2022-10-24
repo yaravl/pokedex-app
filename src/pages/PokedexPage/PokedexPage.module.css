@@ -1,0 +1,18 @@
+.page_container {
+    @apply flex justify-center items-center h-screen;
+}
+
+.content_container {
+    @apply flex justify-between
+}
+
+.list_container {
+
+}
+
+.pokemon_item {
+    @apply flex;
+    &_image {
+        @apply rounded h-8 w-8;
+    }
+}
