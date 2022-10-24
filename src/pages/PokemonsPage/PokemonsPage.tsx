@@ -1,20 +1,19 @@
 import React from 'react';
 
-import { useRequestPokemonQuery } from '../../utils/api/hooks';
+import { Pokemon } from './Pokemon/Pokemon';
 
 export const PokemonsPage = () => {
-  const { data, isLoading, fetchPreviousPage, fetchNextPage } = useRequestPokemonQuery();
+  const [pokemons, setPokemons] = React.useState(Array.from({ length: 20 }));
 
-  if (isLoading) return <h1>Loading...</h1>;
-  console.log(data);
+  console.log('@pokemons', pokemons);
   return (
-    <div>
+    <div className='container'>
       <h1>Pokemons Page</h1>
-      <div className='flex flex-wrap'>asd</div>
-      <button onClick={() => fetchPreviousPage()}>prev</button>
-      <button onClick={() => fetchNextPage()}>next</button>
+      <div className='grid grid-cols-3 gap-3'>
+        {pokemons.map((_el: any, index: number) => (
+          <Pokemon key={index + 1} id={index + 1} />
+        ))}
+      </div>
     </div>
   );
 };
-
-// TODO: 1:14 https://www.youtube.com/watch?v=23JL1zAKW-U&t=2639s&ab_channel=SIBERIACANCODE%F0%9F%A7%8A-Frontend
