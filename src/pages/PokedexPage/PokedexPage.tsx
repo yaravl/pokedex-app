@@ -16,10 +16,10 @@ export const PokedexPage = () => {
   console.log(pokemons);
 
   return (
-    <div className={styles.page_container}>
-      <div className={styles.content_container}>
-        <div>card</div>
-        <ul className={styles.list_container}>
+    <div className={styles.page}>
+      <div className={styles.content}>
+        <div className={styles.card}>card</div>
+        <ul>
           {pokemons.map((pokemon) => (
             <li className={styles.pokemon_item} key={pokemon.name}>
               <img

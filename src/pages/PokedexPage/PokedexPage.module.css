@@ -1,18 +1,21 @@
-.page_container {
+.page {
     @apply flex justify-center items-center h-screen;
 }
 
-.content_container {
+.content {
     @apply flex justify-between
 }
 
-.list_container {
-
-}
 
 .pokemon_item {
-    @apply flex;
+    @apply flex bg-zinc-500 opacity-80 text-sm text-white mb-2 items-center justify-center p-2 capitalize;
+    @apply rounded-l-full overflow-hidden;
+    @apply hover:cursor-pointer hover:bg-black hover:scale-110 ease-in-out duration-300;
     &_image {
-        @apply rounded h-8 w-8;
+        @apply rounded h-16 w-16 mr-2 scale-150;
     }
+}
+
+.card {
+    @apply ;
 }
