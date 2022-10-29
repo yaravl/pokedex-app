@@ -17,8 +17,10 @@
     "jsx": "react-jsx",
     "baseUrl": "./src",
     "paths": {
+      "@assets/*": ["./assets/*"],
       "@common": ["./common"],
       "@common/*": ["./common/*"],
+      "@features/*": ["./features/*"],
       "@pages": ["./pages"],
       "@utils/api": ["./utils/api"],
       "@utils/constants": ["./utils/constants"],

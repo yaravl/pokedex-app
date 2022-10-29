@@ -1,0 +1,38 @@
+body {
+    @apply pt-32;
+}
+
+.header {
+    @apply shadow-md fixed top-0 w-full bg-white;
+
+    &_container {
+        @apply flex container py-5 justify-between;
+    }
+
+    &_left {
+        @apply flex gap-6 justify-center items-center;
+    }
+
+    &_logo {
+        @apply w-[150px];
+    }
+
+    &_quote {
+        @apply font-light text-base;
+    }
+
+    &_navigation {
+        @apply flex gap-5 justify-center items-center;
+
+        a {
+            @apply font-normal cursor-pointer text-lg;
+            @apply hover:underline;
+        }
+    }
+}
+
+
+
+
+
+

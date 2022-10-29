@@ -19,9 +19,9 @@ export const PokemonsPage = () => {
   if (isLoading) return <h1>Loading</h1>;
 
   return (
-    <div className='container'>
+    <div className='container '>
       <h1>Pokemons Page</h1>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='text text- grid grid-cols-3 gap-4 '>
         {result.map((pokemon: any, index: number) => (
           <Pokemon key={index} pokemon={pokemon.data} />
         ))}
