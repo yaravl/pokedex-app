@@ -11,8 +11,10 @@ export const useRequestPokemonQueries = ({ offset }: UseRequestPokemonQueriesPar
     queries: Array.from({ length: offset }).map((_el: any, index: number) => {
       const pokemonId = index + 1;
       return {
-        queryKey: ['pokemon', pokemonId],
-        queryFn: () => requestPokemonById({ params: { id: pokemonId } })
+        queryKey: ['pokemons', pokemonId],
+        queryFn: () => requestPokemonById({ params: { id: pokemonId } }),
+        staleTime: 60 * 1000 * 5,
+        cacheTime: 10000
       };
     })
   });

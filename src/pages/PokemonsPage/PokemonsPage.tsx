@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { useRequestPokemonQueries } from '../../utils/api/hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRequestPokemonQueries } from '@utils/api';
 
 import { Pokemon } from './Pokemon/Pokemon';
 
@@ -16,12 +17,16 @@ export const PokemonsPage = () => {
     }
   }, [isLoading]);
 
+  const queryClient = useQueryClient();
+
+  console.log('@@@ cache', queryClient.getQueriesData(['pokemons']));
+
   if (isLoading) return <h1>Loading</h1>;
 
   return (
     <div className='container '>
       <h1>Pokemons Page</h1>
-      <div className='text text- grid grid-cols-3 gap-4 '>
+      <div className='grid grid-cols-3 gap-4 '>
         {result.map((pokemon: any, index: number) => (
           <Pokemon key={index} pokemon={pokemon.data} />
         ))}

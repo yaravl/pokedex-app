@@ -7,7 +7,10 @@ interface RequestPokemonByIdParams {
   config?: AxiosRequestConfig;
 }
 
-export const requestPokemonById = async ({ params, config }: RequestPokemonByIdParams) => {
-  const res = await api.get<Pokemon>(`pokemon/${params.id}`, config);
+export const requestPokemonById = async ({
+  params,
+  config
+}: RequestPokemonByIdParams): Promise<Pokemon> => {
+  const res = await api.get(`pokemon/${params.id}`, config);
   return res.data;
 };
