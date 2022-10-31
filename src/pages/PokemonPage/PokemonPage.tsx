@@ -12,13 +12,14 @@ export const PokemonPage: React.FC = () => {
     config: {
       retry: 0,
       cacheTime: 60000,
-      staleTime: 10000
+      staleTime: 10000,
+      initialData: () => ({ name: 'buba' })
     }
   });
 
   const queryClient = useQueryClient();
 
-  console.log('@@@ cache', queryClient.getQueryData(['pokemons', 3]));
+  console.log('@@@ cache', queryClient);
 
   if (data) {
     console.log('@data', data);
