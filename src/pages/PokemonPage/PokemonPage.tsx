@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { useQueryClient } from '@tanstack/react-query';
 import { useRequestPokemonQuery } from '@utils/api';
 
 export const PokemonPage: React.FC = () => {
@@ -17,16 +16,9 @@ export const PokemonPage: React.FC = () => {
     }
   });
 
-  const queryClient = useQueryClient();
-
-  console.log('@@@ cache', queryClient);
-
   if (data) {
-    console.log('@data', data);
     return <div className='container'>{data.name}</div>;
   }
 
   return null;
 };
-
-// 44:00 https://www.youtube.com/watch?v=7yFfNRQg6rE&t=555s&ab_channel=SIBERIACANCODE%F0%9F%A7%8A-Frontend

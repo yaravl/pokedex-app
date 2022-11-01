@@ -1,10 +1,6 @@
-import React from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-
-import { requestPokemonById, requestPokemons } from '../../requests';
-
-import { useRequestPokemonQuery } from './useReauestPokemonQuery';
+import { requestPokemons } from '../../requests';
 
 interface UseRequestPokemonQueriesParams {
   offset: number;
@@ -13,9 +9,10 @@ interface UseRequestPokemonQueriesParams {
 export const useRequestPokemonQueries = ({ offset = 0 }: UseRequestPokemonQueriesParams) =>
   useInfiniteQuery(
     ['pokemon`s'],
-    ({ pageParam = 0 }) => requestPokemons({ params: { limit: 9, offset: pageParam } }),
+    ({ pageParam = offset }) => requestPokemons({ params: { limit: 9, offset: pageParam } }),
     {
       retry: 0,
+      staleTime: 500000,
       getNextPageParam: (lastPage, allPages) => allPages.length * 9
     }
   );
