@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 
 import { api } from '../../instance';
 
-interface RequestPokemonByIdParams {
+interface RequestPokemonsParams {
   params: { limit: number; offset: number };
   config?: AxiosRequestConfig;
 }
@@ -10,7 +10,7 @@ interface RequestPokemonByIdParams {
 export const requestPokemons = async ({
   params,
   config
-}: RequestPokemonByIdParams): Promise<NamedAPIResourceList> => {
+}: RequestPokemonsParams): Promise<NamedAPIResourceList> => {
   const res = await api.get(`pokemon/?limit=${params.limit}&offset=${params.offset}`, config);
   return res.data;
 };

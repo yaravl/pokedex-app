@@ -5,7 +5,17 @@ import { useRequestPokemonInfiniteQuery } from '@utils/api';
 import { Pokemon } from './Pokemon/Pokemon';
 
 export const PokemonsPage = () => {
-  const { data: dataPages, isError, isLoading, fetchNextPage } = useRequestPokemonInfiniteQuery();
+  const {
+    data: dataPages,
+    isError,
+    isLoading,
+    fetchNextPage
+  } = useRequestPokemonInfiniteQuery({
+    options: {
+      staleTime: 50000,
+      cacheTime: 50000
+    }
+  });
 
   if (isError) {
     return <h1>ERROR</h1>;
@@ -18,6 +28,7 @@ export const PokemonsPage = () => {
     (arr: NamedAPIResource[], page) => [...arr, ...page.results],
     []
   );
+
   console.log(`data pages@@@`, pokemons);
 
   return (
@@ -30,18 +41,19 @@ export const PokemonsPage = () => {
         NEXT PAGE
       </button>
       <div className='grid grid-cols-3 gap-4 '>
-        {pokemons.map((pokemon: any) => {
-          if (pokemon.name) {
-            const pokemonId = pokemon.url
-              .slice(1, -1)
-              .split('/')
-              .filter((el: any[]) => Number(el))
-              .join('');
+        {pokemons.length > 0 &&
+          pokemons.map((pokemon) => {
+            if (pokemon.name) {
+              const pokemonId = pokemon.url
+                .slice(1, -1)
+                .split('/')
+                .filter((el) => Number(el))
+                .join('');
 
-            return <Pokemon key={pokemonId} pokemon={pokemonId} />;
-          }
-          return 'Pokemon not found!';
-        })}
+              return <Pokemon key={pokemonId} pokemon={pokemonId} />;
+            }
+            return 'Pokemon not found!';
+          })}
       </div>
       <button onClick={() => fetchNextPage()}>load more</button>
     </div>

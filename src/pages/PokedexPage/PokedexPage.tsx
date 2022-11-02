@@ -1,14 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
 
-import { useRequestPokemonFormQuery, useRequestPokemonQueries } from '@utils/api';
+import { useRequestPokemonFormQuery, useRequestPokemonsQueries } from '@utils/api';
 
 import styles from './PokedexPage.module.css';
 
 export const PokedexPage = ({ id = 1 }) => {
   const [offset, setOffset] = React.useState(1);
   const [selectedPokemonId, setSelectedPokemonId] = React.useState(id);
-  const results = useRequestPokemonQueries({ offset });
+  const results = useRequestPokemonsQueries({ offset });
 
   const isLoading = results.some((el) => el.isLoading);
 
