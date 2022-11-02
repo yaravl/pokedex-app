@@ -12,6 +12,7 @@ export const PokemonsPage = () => {
     fetchNextPage
   } = useRequestPokemonInfiniteQuery({
     options: {
+      retry: 1,
       staleTime: 50000,
       cacheTime: 50000
     }
@@ -29,8 +30,6 @@ export const PokemonsPage = () => {
     []
   );
 
-  console.log(`data pages@@@`, pokemons);
-
   return (
     <div className='container '>
       <h1>Pokemons Page</h1>
@@ -42,18 +41,12 @@ export const PokemonsPage = () => {
       </button>
       <div className='grid grid-cols-3 gap-4 '>
         {pokemons.length > 0 &&
-          pokemons.map((pokemon) => {
-            if (pokemon.name) {
-              const pokemonId = pokemon.url
-                .slice(1, -1)
-                .split('/')
-                .filter((el) => Number(el))
-                .join('');
-
-              return <Pokemon key={pokemonId} pokemon={pokemonId} />;
-            }
-            return 'Pokemon not found!';
-          })}
+          pokemons.map((pokemon, index) => (
+            <div key={pokemon.name}>
+              <div>#{(index + 1).toString().padStart(3, '0')}</div>
+              <Pokemon pokemon={pokemon.name} />
+            </div>
+          ))}
       </div>
       <button onClick={() => fetchNextPage()}>load more</button>
     </div>

@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { requestPokemonById } from '../../requests';
+import { requestPokemonById } from '../requests';
 
 interface UseRequestPokemonQueryParams {
   id: number;
@@ -10,7 +10,7 @@ interface UseRequestPokemonQueryParams {
 
 export const useRequestPokemonQuery = ({
   params,
-  config
+  options
 }: RequestQueryParams<UseRequestPokemonQueryParams, Pokemon, AxiosError>) =>
   useQuery<Pokemon, AxiosError>(
     ['pokemon', params.id],
@@ -18,5 +18,5 @@ export const useRequestPokemonQuery = ({
       requestPokemonById({
         params
       }),
-    { ...config }
+    { ...options }
   );

@@ -1,16 +1,16 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { UseInfiniteQueryOptions } from '@tanstack/react-query/src/types';
 
-import { requestPokemons } from '../../requests';
+import { requestPokemons } from '../requests';
 
 interface UseRequestPokemonInfiniteQueryParams {
-  options?: Omit<UseInfiniteQueryOptions<NamedAPIResourceList>, 'queryKey' | 'queryFn'>;
+  options?: Omit<UseInfiniteQueryOptions<NamedAPIResourceList, Error>, 'queryKey' | 'queryFn'>;
 }
 
 export const useRequestPokemonInfiniteQuery = ({
   options = {}
 }: UseRequestPokemonInfiniteQueryParams) =>
-  useInfiniteQuery<NamedAPIResourceList>(
+  useInfiniteQuery<NamedAPIResourceList, Error>(
     ['pokemon`s'],
     ({ pageParam = 0 }) =>
       requestPokemons({

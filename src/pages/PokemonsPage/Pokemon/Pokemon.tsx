@@ -9,7 +9,7 @@ interface PokemonProps {
 export const Pokemon: React.FC<PokemonProps> = ({ pokemon }) => {
   const { data, isLoading, isError } = useRequestPokemonQuery({
     params: { id: pokemon },
-    config: { staleTime: 50000 }
+    options: { staleTime: 50000 }
   });
 
   if (isError) return <h1>Error!</h1>;

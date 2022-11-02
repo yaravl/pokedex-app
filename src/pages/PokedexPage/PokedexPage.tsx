@@ -1,15 +1,18 @@
 import classNames from 'classnames';
 import React from 'react';
 
+import { UseQueryResult } from '@tanstack/react-query';
 import { useRequestPokemonFormQuery, useRequestPokemonsQueries } from '@utils/api';
 
 import styles from './PokedexPage.module.css';
 
 export const PokedexPage = ({ id = 1 }) => {
-  const [offset, setOffset] = React.useState(1);
+  const [offset, setOffset] = React.useState(6);
   const [selectedPokemonId, setSelectedPokemonId] = React.useState(id);
   const results = useRequestPokemonsQueries({ offset });
 
+  const isError = results.some((el) => el.isError);
+  if (isError) return <h1>Error</h1>;
   const isLoading = results.some((el) => el.isLoading);
 
   const { data } = useRequestPokemonFormQuery({
@@ -18,11 +21,9 @@ export const PokedexPage = ({ id = 1 }) => {
   });
 
   if (isLoading) return <h1>Loading</h1>;
-  console.log(data);
+  const pokemons = results.map((result: UseQueryResult<Pokemon>) => result.data!);
 
-  const pokemons = results.map((result) => result!.data);
-
-  const selectedPokemon = pokemons.find((pokemon) => pokemon?.id === selectedPokemonId)!;
+  const selectedPokemon = pokemons.find((pokemon) => pokemon.id === selectedPokemonId)!;
 
   return (
     <div className={styles.page}>
