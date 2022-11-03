@@ -1,0 +1,23 @@
+.pokemon {
+    @apply flex flex-col justify-center w-full rounded p-4 shadow;
+    &_types {
+        @apply flex justify-between;
+
+        span {
+            @apply font-light bg-gray-100 p-1;
+        }
+    }
+
+    &_stats {
+        h4 {
+            @apply text-xl mb-2;
+        }
+        @apply mb-4;
+    }
+
+    &_stat {
+        @apply border-b-2 mb-1
+    }
+
+
+}
