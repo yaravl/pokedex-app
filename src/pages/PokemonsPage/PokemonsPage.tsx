@@ -1,8 +1,8 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
 
+import { Popup } from '@common';
 import { useRequestPokemonInfiniteQuery } from '@utils/api';
-import { useDebounce } from '@utils/hooks';
 
 import { Pokemon } from './Pokemon/Pokemon';
 
@@ -10,13 +10,14 @@ import styles from './PokemonsPage.module.css';
 
 export const PokemonsPage = () => {
   const [pokemonId, setPokemonId] = React.useState<Pokemon['id'] | Pokemon['name'] | null>(null);
-  const debouncedId = useDebounce(pokemonId, 1000);
   const { ref, inView } = useInView();
+  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
   const {
     data: dataPages,
     isError,
     isLoading,
-    fetchNextPage
+    fetchNextPage,
+    hasNextPage
   } = useRequestPokemonInfiniteQuery({
     options: {
       retry: 1,
@@ -26,7 +27,7 @@ export const PokemonsPage = () => {
   });
 
   React.useEffect(() => {
-    if (inView) {
+    if (hasNextPage && inView) {
       fetchNextPage();
     }
   }, [inView]);
@@ -43,6 +44,11 @@ export const PokemonsPage = () => {
     []
   );
 
+  const handlePopupOpen = (id: number = 1) => {
+    setPokemonId(id);
+    setIsPopupOpen(true);
+  };
+
   return (
     <div className='container '>
       <h1>Pokemons Page</h1>
@@ -52,35 +58,36 @@ export const PokemonsPage = () => {
       <button className='border-2 p-2' onClick={() => fetchNextPage()}>
         NEXT PAGE
       </button>
+
+      <button className='border-2 p-2' onClick={() => handlePopupOpen()}>
+        popupopen
+      </button>
       <div className={styles.pokemons_container}>
         {pokemons.length > 0 &&
           pokemons.map((pokemon, index) => {
             const id = index + 1;
             return (
               <div
-                onMouseEnter={() => {
-                  setPokemonId(id);
-                }}
-                onMouseLeave={() => setPokemonId(null)}
+                aria-label='pokemon-card'
+                role='button'
+                tabIndex={0}
+                onKeyDown={(e) => e.key === 'Enter' && handlePopupOpen(id)}
+                onClick={() => handlePopupOpen(id)}
                 className={styles.pokemon}
                 key={pokemon.name}
               >
-                <div>
-                  <div className={styles.pokemon_number}>#{id.toString().padStart(3, '0')}</div>
-                  <div className={styles.pokemon_name}>{pokemon.name}</div>
-                </div>
-                {debouncedId === id && (
-                  <div className={styles.pokemon_wrap}>
-                    <Pokemon pokemonId={id} />
-                  </div>
-                )}
+                <div className={styles.pokemon_number}>#{id.toString().padStart(3, '0')}</div>
+                <div className={styles.pokemon_name}>{pokemon.name}</div>
               </div>
             );
           })}
       </div>
-      <button ref={ref} onClick={() => fetchNextPage()}>
+      <button ref={ref} onClick={() => hasNextPage && fetchNextPage()}>
         load more
       </button>
+      <Popup onClose={() => setIsPopupOpen(false)} isOpen={isPopupOpen}>
+        <Pokemon pokemonId={pokemonId} />
+      </Popup>
     </div>
   );
 };

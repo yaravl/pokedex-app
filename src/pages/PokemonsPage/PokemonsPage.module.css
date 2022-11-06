@@ -3,21 +3,13 @@
 }
 
 .pokemon {
-    @apply flex flex-col items-center justify-center py-2 shadow-lg rounded-md;
+    @apply flex items-center justify-between p-4 shadow-lg rounded-md;
 
     &_number {
         @apply font-light;
     }
     &_name {
-        @apply font-bold text-xl;
+        @apply font-bold text-xl capitalize;
     }
-    &_wrap {
-        @apply relative w-full;
-        a {
-            @apply absolute w-full left-0 top-0 bg-white;
-        }
-        h5 {
-            @apply absolute
-        }
-    }
+
 }

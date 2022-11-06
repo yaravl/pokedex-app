@@ -23,7 +23,7 @@ export const useRequestPokemonInfiniteQuery = ({
           ? lastPage.next.split('?')[1].split('&')[0].split('=')[1]
           : null;
 
-        if (!nextPage) return null;
+        if (!nextPage) return false;
 
         return +nextPage ?? null;
       },

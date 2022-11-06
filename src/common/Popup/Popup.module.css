@@ -1,0 +1,17 @@
+
+
+.popup {
+    @apply flex fixed inset-0 z-10 overflow-y-auto w-full h-full;
+
+    &_overlay {
+        @apply fixed inset-0 bg-gray-200 opacity-95;
+    }
+
+    &_close {
+        @apply absolute text-4xl right-2 top-0 rotate-45;
+    }
+
+    &_content {
+        @apply relative m-auto bg-white max-w-md w-full p-5 rounded-md shadow-md;
+    }
+}
