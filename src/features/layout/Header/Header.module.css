@@ -2,8 +2,10 @@ body {
     @apply pt-32;
 }
 
+
+
 .header {
-    @apply shadow-md fixed top-0 w-full bg-white z-10;
+    @apply shadow-md fixed top-0 left-0 w-screen bg-white z-10;
 
     &_container {
         @apply flex container py-2 justify-between;

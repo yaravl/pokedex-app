@@ -1,5 +1,3 @@
-
-
 .popup {
     @apply flex fixed inset-0 z-10 overflow-y-auto w-full h-full;
 
@@ -14,4 +12,45 @@
     &_content {
         @apply relative m-auto bg-white max-w-md w-full p-5 rounded-md shadow-md;
     }
+}
+
+/* Animation */
+
+.overlayEnter {
+    opacity: 0;
+}
+
+.overlayEnterActive {
+    transition: opacity 300ms ease-in-out;
+    opacity: 0.95;
+}
+
+.overlayExit {
+
+}
+
+.overlayExitActive {
+    transition: opacity 300ms ease-in-out;
+    opacity: 0;
+}
+
+.contentEnter {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+.contentEnterActive {
+    transition: opacity 100ms ease-in-out 200ms, transform 100ms ease-in-out 200ms;
+    opacity: 1;
+    transform: scale(1);
+}
+
+.contentExit {
+
+}
+
+.contentExitActive {
+    transition: opacity 100ms ease-in-out, transform 100ms ease-in-out;
+    opacity: 0;
+    transform: scale(0.01);
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import styles from './Popup.module.css';
+import { PopupLayout } from '@common/Popup/PopupLayout';
+import { usePopupMount } from '@common/Popup/usePopupMount';
 
 interface PortalProps {
   children: React.ReactNode;
@@ -27,41 +28,29 @@ interface PopupProps {
 }
 
 export const Popup: React.FC<PopupProps> = ({ children, onClose, isOpen }) => {
+  const { mounted } = usePopupMount({ opened: isOpen });
+
   React.useEffect(() => {
-    if (isOpen) {
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+    if (mounted) {
       document.body.style.overflow = 'hidden';
-      document.body.style.padding = `8rem ${
-        window.innerWidth - document.documentElement.clientWidth
-      }px 0 0`;
+      document.body.style.padding = `8rem ${scrollBarWidth}px 0 0`;
     } else {
       document.body.style.overflow = '';
       document.body.style.padding = '';
     }
-  }, [isOpen]);
+  }, [mounted]);
 
-  if (!isOpen) {
+  if (!mounted) {
     return null;
   }
 
   return (
     <Portal>
-      <div className={styles.popup} role='dialog'>
-        <div
-          className={styles.popup_overlay}
-          role='button'
-          aria-label='close'
-          tabIndex={0}
-          onClick={onClose}
-          onKeyDown={onClose}
-        />
-
-        <div className={styles.popup_content}>
-          <button onClick={onClose} className={styles.popup_close}>
-            +
-          </button>
-          {children}
-        </div>
-      </div>
+      <PopupLayout onClose={onClose} opened={isOpen}>
+        {children}
+      </PopupLayout>
     </Portal>
   );
 };

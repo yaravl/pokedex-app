@@ -1,0 +1,15 @@
+.stats {
+    h4 {
+        @apply text-2xl mb-2;
+    }
+    @apply mb-2;
+
+    &_list {
+        @apply border-b-2 mb-1;
+    }
+
+    &_item {
+        @apply h-1.5 bg-blue-400 w-0 transition delay-700;
+    }
+}
+
