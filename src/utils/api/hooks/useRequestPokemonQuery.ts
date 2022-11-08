@@ -4,14 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { requestPokemonById } from '../requests';
 
-interface UseRequestPokemonQueryParams {
-  id: number;
-}
-
-export const useRequestPokemonQuery = ({
-  params,
-  options
-}: RequestQueryParams<UseRequestPokemonQueryParams, Pokemon, AxiosError>) =>
+export const useRequestPokemonQuery = ({ params, options = {} }: UseRequestPokemonQueryParams) =>
   useQuery<Pokemon, AxiosError>(
     ['pokemon', params.id],
     () =>

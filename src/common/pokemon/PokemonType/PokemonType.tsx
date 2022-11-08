@@ -8,7 +8,10 @@ interface PokemonTypeProps {
 }
 
 export const PokemonType: React.FC<PokemonTypeProps> = ({ type }) => (
-  <div key={type.name} className={classNames(styles[type.name], styles.type)}>
+  <div
+    key={type.name}
+    className={classNames(`text-elm-${type.name} border-2 border-elm-${type.name}`, styles.type)}
+  >
     {type.name}
   </div>
 );

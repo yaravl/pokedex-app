@@ -1,0 +1,28 @@
+.hero {
+    @apply grid relative grid-cols-[auto_28rem] p-6 rounded-md shadow-md;
+
+    &::before {
+        @apply text-black ;
+        clip-path: polygon(0 0, 0 100%, 100% 100%)
+    }
+    &::after, &::before {
+        content: "";
+        position: absolute;
+        left: -50px;
+        top: -50px;
+        display: block;
+        height: 160px;
+        width: 160px;
+        border-radius: 9999px;
+        border-width: 40px;
+        border-color: hsla(0,0%,100%,.1);
+    }
+}
+
+.imgwrap {
+    max-width: 400px;
+    margin: auto;
+    img {
+
+    }
+}

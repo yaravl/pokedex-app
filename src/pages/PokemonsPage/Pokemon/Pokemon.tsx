@@ -20,7 +20,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonId }) => {
 
   if (isError) return <h5>Error!</h5>;
   if (isLoading) return <h5>Loading...</h5>;
-  console.log(data);
+
   return (
     <div className={styles.pokemon}>
       <div className={styles.pokemon_header}>
@@ -30,7 +30,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonId }) => {
 
       <div className={styles.pokemon_imgwrap}>
         <PokemonTypes types={data.types} />
-        <img src={data?.sprites.front_default || ''} alt='pokemon' height={344} width={344} />
+        <img src={data.sprites.front_default || ''} alt='pokemon' height={344} width={344} />
       </div>
 
       <PokemonStats title='Stats' stats={data.stats} />

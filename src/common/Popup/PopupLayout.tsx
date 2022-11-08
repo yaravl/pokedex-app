@@ -1,5 +1,4 @@
 import React from 'react';
-// @ts-ignore
 import { CSSTransition } from 'react-transition-group';
 
 import { ANIMATION_TIME } from './usePopupMount';
