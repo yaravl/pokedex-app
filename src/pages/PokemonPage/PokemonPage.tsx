@@ -1,7 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
+import { PokemonAbilities, PokemonHero, PokemonStats } from '@common';
 import { useRequestPokemonQuery } from '@utils/api';
 
 import styles from './PokemonPage.module.css';
@@ -25,23 +25,15 @@ export const PokemonPage: React.FC = () => {
 
   return (
     <div className='container'>
-      <div className={classNames(`bg-elm-${data.types[0].type.name}`, styles.hero)}>
+      <PokemonHero pokemon={data} />
+      <div className='evolution'>evolution chain</div>
+      <div className={styles.info}>
         <div>
-          {data.name}
-          {data.id}
+          <PokemonStats title='Base Stats' stats={data.stats} colorType={data.types[0].type.name} />
         </div>
-        <div className={styles.imgwrap}>
-          <img
-            src={
-              data.sprites.other['official-artwork'].front_default ||
-              data.sprites.front_default ||
-              ''
-            }
-            alt={`Pokemon - ${data.name}`}
-          />
+        <div>
+          <PokemonAbilities pokemon={data} />
         </div>
-        <div>types</div>
-        <div>characteristics line</div>
       </div>
     </div>
   );

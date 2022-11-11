@@ -9,7 +9,7 @@
         }
 
         div {
-            @apply text-gray-500 font-bold text-xl
+            @apply text-gray-400 text-xl
         }
     }
 

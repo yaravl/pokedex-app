@@ -1,0 +1,25 @@
+.hero {
+    @apply grid relative grid-cols-[auto_28rem] p-6 rounded-md shadow-md;
+
+}
+
+.imgwrap {
+    max-width: 400px;
+    margin: auto;
+    @apply col-start-2;
+}
+
+.characteristics {
+    background-color: rgba(255,255,255,0.6);
+    @apply flex flex-wrap justify-center items-end rounded py-4 col-span-full;
+
+    &>div {
+        @apply flex-1 border-l border-l-white first:border-none;
+
+        div {
+            @apply text-center ;
+            @apply first:font-medium first:text-xl;
+            @apply last:text-gray-500 last:text-sm;
+        }
+    }
+}

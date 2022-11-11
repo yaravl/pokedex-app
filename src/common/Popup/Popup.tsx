@@ -12,9 +12,14 @@ const Portal: React.FC<PortalProps> = ({ children }) => {
   const [container] = React.useState(() => document.createElement('div'));
 
   React.useEffect(() => {
+    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.appendChild(container);
+    document.body.style.overflow = 'hidden';
+    document.body.style.padding = `8rem ${scrollBarWidth}px 0 0`;
     return () => {
       document.body.removeChild(container);
+      document.body.style.overflow = '';
+      document.body.style.padding = '';
     };
   }, []);
 
@@ -29,18 +34,6 @@ interface PopupProps {
 
 export const Popup: React.FC<PopupProps> = ({ children, onClose, isOpen }) => {
   const { mounted } = usePopupMount({ opened: isOpen });
-
-  React.useEffect(() => {
-    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-    if (mounted) {
-      document.body.style.overflow = 'hidden';
-      document.body.style.padding = `8rem ${scrollBarWidth}px 0 0`;
-    } else {
-      document.body.style.overflow = '';
-      document.body.style.padding = '';
-    }
-  }, [mounted]);
 
   if (!mounted) {
     return null;

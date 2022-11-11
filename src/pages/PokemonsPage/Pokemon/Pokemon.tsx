@@ -33,7 +33,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonId }) => {
         <img src={data.sprites.front_default || ''} alt='pokemon' height={344} width={344} />
       </div>
 
-      <PokemonStats title='Stats' stats={data.stats} />
+      <PokemonStats title='Stats' stats={data.stats} colorType={data.types[0].type.name} />
 
       <Button
         onClick={() => {

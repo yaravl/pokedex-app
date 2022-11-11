@@ -1,5 +1,5 @@
 .button {
-    @apply flex justify-center items-center;
+    @apply flex justify-center items-center mt-3;
     @apply h-12 w-full shadow-md rounded-xl cursor-pointer;
     @apply text-lg font-medium;
 
