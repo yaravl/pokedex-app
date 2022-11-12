@@ -1,3 +1,4 @@
+export * from './useRequestPokemonAbilitiesQuery';
 export * from './useRequestPokemonFormQuery';
 export * from './useRequestPokemonInfiniteQuery';
 export * from './useRequestPokemonQuery';

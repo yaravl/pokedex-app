@@ -1,4 +1,4 @@
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, UseQueryResult } from '@tanstack/react-query';
 
 import { requestPokemonById } from '../requests';
 

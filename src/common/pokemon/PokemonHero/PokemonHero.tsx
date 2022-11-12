@@ -18,6 +18,8 @@ export const PokemonHero: React.FC<PokemonHeroProps> = ({ pokemon }) => (
     </div>
     <div className={styles.imgwrap}>
       <img
+        width={400}
+        height={400}
         src={
           pokemon.sprites.other['official-artwork'].front_default ||
           pokemon.sprites.front_default ||

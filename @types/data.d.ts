@@ -922,3 +922,74 @@ interface EvolutionTrigger {
   /** A list of pokemon species that result from this evolution trigger. */
   pokemon_species: NamedAPIResource[];
 }
+
+/** Abilities provide passive effects for Pokémon in battle or in the overworld. Pokémon have multiple possible abilities but can have only one ability at a time. Check out [Bulbapedia](http://bulbapedia.bulbagarden.net/wiki/Ability) for greater detail. */
+interface Ability {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** Whether or not this ability originated in the main series of the video games. */
+  is_main_series: boolean;
+  /** The generation this ability originated in. */
+  generation: NamedAPIResource<Generation>;
+  /** The name of this resource listed in different languages. */
+  names: Name[];
+  /** The effect of this ability listed in different languages. */
+  effect_entries: VerboseEffect[];
+  /** The list of previous effects this ability has had across version groups. */
+  effect_changes: AbilityEffectChange[];
+  /** The flavor text of this ability listed in different languages. */
+  flavor_text_entries: AbilityFlavorText[];
+  /** A list of Pokémon that could potentially have this ability. */
+  pokemon: AbilityPokemon[];
+}
+
+interface AbilityEffectChange {
+  /** The previous effect of this ability listed in different languages. */
+  effect_entries: Effect[];
+  /** The version group in which the previous effect of this ability originated. */
+  version_group: NamedAPIResource<VersionGroup>;
+}
+
+interface AbilityFlavorText {
+  /** The localized name for an API resource in a specific language. */
+  flavor_text: string;
+  /** The language this text resource is in. */
+  language: NamedAPIResource<Language>;
+  /** The version group that uses this flavor text. */
+  version_group: NamedAPIResource<VersionGroup>;
+}
+
+interface AbilityPokemon {
+  /** Whether or not this a hidden ability for the referenced Pokémon. */
+  is_hidden: boolean;
+  /** Pokémon have 3 ability 'slots' which hold references to possible abilities they could have. This is the slot of this ability for the referenced pokemon. */
+  slot: number;
+  /** The Pokémon this ability could belong to. */
+  pokemon: NamedAPIResource<Pokemon>;
+}
+
+interface VerboseEffect {
+  /** The localized effect text for an API resource in a specific language. */
+  effect: string;
+  /** The localized effect text in brief. */
+  short_effect: string;
+  /** The language this effect is in. */
+  language: NamedAPIResource<Language>;
+}
+
+interface Language {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** Whether or not the games are published in this language. */
+  official: boolean;
+  /** The two-letter code of the country where this language is spoken. Note that it is not unique. */
+  iso639: string;
+  /** The two-letter code of the language. Note that it is not unique. */
+  iso3166: string;
+  /** The name of this resource listed in different languages. */
+  names: Name[];
+}

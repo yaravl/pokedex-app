@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 
 import { PokemonAbilities, PokemonHero, PokemonStats } from '@common';
-import { useRequestPokemonQuery } from '@utils/api';
+import { useRequestPokemonAbilitiesQuery, useRequestPokemonQuery } from '@utils/api';
 
 import styles from './PokemonPage.module.css';
 
