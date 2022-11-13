@@ -15,3 +15,11 @@ interface UseRequestPokemonInfiniteQueryParams {
     'queryKey' | 'queryFn'
   >;
 }
+
+interface UsePokemonSpeciesQuery {
+  id: number;
+  options?: Omit<
+    import('@tanstack/react-query').UseQueryOptions<PokemonSpecies, import('axios').AxiosError>,
+    'queryFn' | 'queryKey'
+  >;
+}

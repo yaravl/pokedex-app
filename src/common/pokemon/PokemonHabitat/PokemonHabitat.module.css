@@ -1,0 +1,9 @@
+.habitat {
+    h2 {
+        @apply pb-2.5 text-xl;
+    }
+
+    p {
+        @apply text-gray-500 capitalize
+    }
+}

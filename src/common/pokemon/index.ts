@@ -1,4 +1,5 @@
 export * from './PokemonAbilities/PokemonAbilities';
+export * from './PokemonHabitat/PokemonHabitat';
 export * from './PokemonHero/PokemonHero';
 export * from './PokemonStats/PokemonStats';
 export * from './PokemonType/PokemonType';

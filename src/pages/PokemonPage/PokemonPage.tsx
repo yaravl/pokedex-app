@@ -1,8 +1,8 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { PokemonAbilities, PokemonHero, PokemonStats } from '@common';
-import { useRequestPokemonAbilitiesQuery, useRequestPokemonQuery } from '@utils/api';
+import { PokemonAbilities, PokemonHabitat, PokemonHero, PokemonStats } from '@common';
+import { useRequestPokemonQuery } from '@utils/api';
 
 import styles from './PokemonPage.module.css';
 
@@ -29,10 +29,21 @@ export const PokemonPage: React.FC = () => {
       <div className='evolution'>evolution chain</div>
       <div className={styles.info}>
         <div>
-          <PokemonStats title='Base Stats' stats={data.stats} colorType={data.types[0].type.name} />
+          <div className={styles.info_item}>
+            <PokemonStats
+              title='Base Stats'
+              stats={data.stats}
+              colorType={data.types[0].type.name}
+            />
+          </div>
+          <div className={styles.info_item}>
+            <PokemonHabitat id={data.id} />
+          </div>
         </div>
         <div>
-          <PokemonAbilities pokemon={data} />
+          <div className={styles.info_item}>
+            <PokemonAbilities pokemon={data} />
+          </div>
         </div>
       </div>
     </div>
