@@ -1,0 +1,9 @@
+.evolution {
+    h2 {
+        @apply pb-2.5 text-xl;
+    }
+
+    ul {
+        li {}
+    }
+}

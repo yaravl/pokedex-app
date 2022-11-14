@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { requestPokemonSpecies } from '../requests/pokemon-species/id';
 
-export const usePokemonSpeciesQuery = ({ id, options = {} }: UsePokemonSpeciesQuery) =>
+export const useRequestPokemonSpeciesQuery = ({ id, options = {} }: UsePokemonSpeciesQuery) =>
   useQuery<PokemonSpecies, AxiosError>(
     ['pokemon-species', id],
     () => requestPokemonSpecies({ params: { id } }),

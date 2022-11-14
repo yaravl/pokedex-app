@@ -42,6 +42,7 @@ module.exports = {
     'react/no-array-index-key': 0,
     'class-methods-use-this': 0,
     'no-param-reassign': 0,
+    'no-plusplus': 'off',
 
     'import/order': 0,
     'simple-import-sort/exports': 1,

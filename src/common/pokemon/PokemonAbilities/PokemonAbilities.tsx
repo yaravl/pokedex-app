@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useRequestPokemonAbilitiesQuery } from '@utils/api';
+import { getRequestIdNumber } from '@utils/helpers';
 
 const snakeCaseToTitleCase = (str: string) =>
   str.replace(/^(.)|-+(.)/g, (_, p1, p2) => (p1 ? p1.toUpperCase() : ` ${p2.toUpperCase()}`));
@@ -10,9 +11,7 @@ interface PokemonAbilitiesProps {
 }
 
 export const PokemonAbilities: React.FC<PokemonAbilitiesProps> = ({ pokemon }) => {
-  const abilitiesNumbers = pokemon.abilities.map(
-    (item) => +item.ability.url.slice(0, -1).split('/ability/')[1]
-  );
+  const abilitiesNumbers = pokemon.abilities.map((item) => getRequestIdNumber(item, 'ability'));
 
   const abilitiesQuery = useRequestPokemonAbilitiesQuery({ abilities: abilitiesNumbers });
 

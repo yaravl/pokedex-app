@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { usePokemonSpeciesQuery } from '@utils/api';
+import { useRequestPokemonSpeciesQuery } from '@utils/api';
 
 import styles from './PokemonHabitat.module.css';
 
@@ -9,7 +9,7 @@ interface PokemonHabitatProps {
 }
 
 export const PokemonHabitat: React.FC<PokemonHabitatProps> = ({ id }) => {
-  const { data, isLoading, isError } = usePokemonSpeciesQuery({
+  const { data, isLoading, isError } = useRequestPokemonSpeciesQuery({
     id,
     options: { staleTime: Infinity, cacheTime: Infinity }
   });
@@ -20,7 +20,7 @@ export const PokemonHabitat: React.FC<PokemonHabitatProps> = ({ id }) => {
   return (
     <div className={styles.habitat}>
       <h2>Habitat</h2>
-      <p>{data.habitat.name}</p>
+      <p>{data?.habitat?.name || 'N/A'}</p>
     </div>
   );
 };

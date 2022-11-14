@@ -14,7 +14,8 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@utils/api': path.resolve(__dirname, './src/utils/api'),
       '@utils/constants': path.resolve(__dirname, './src/utils/constants'),
-      '@utils/hooks': path.resolve(__dirname, './src/utils/hooks')
+      '@utils/hooks': path.resolve(__dirname, './src/utils/hooks'),
+      '@utils/helpers': path.resolve(__dirname, './src/utils/helpers')
     }
   }
 });

@@ -1,7 +1,13 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-import { PokemonAbilities, PokemonHabitat, PokemonHero, PokemonStats } from '@common';
+import {
+  PokemonAbilities,
+  PokemonEvolutionChain,
+  PokemonHabitat,
+  PokemonHero,
+  PokemonStats
+} from '@common';
 import { useRequestPokemonQuery } from '@utils/api';
 
 import styles from './PokemonPage.module.css';
@@ -26,7 +32,9 @@ export const PokemonPage: React.FC = () => {
   return (
     <div className='container'>
       <PokemonHero pokemon={data} />
-      <div className='evolution'>evolution chain</div>
+      <div className={styles.evolution}>
+        <PokemonEvolutionChain id={data.id} />
+      </div>
       <div className={styles.info}>
         <div>
           <div className={styles.info_item}>
