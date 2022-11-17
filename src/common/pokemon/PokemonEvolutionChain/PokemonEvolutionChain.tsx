@@ -40,40 +40,64 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
   // console.log('Species-data', speciesData);
   console.log('EvChain-data', evChainData);
 
-  const chainArr = (data: typeof evChainData) => {
-    const arr = [];
+  const chainOfPokemons = (data: typeof evChainData) => {
+    if (!data.chain.evolves_to.length) return [];
 
-    if (!data.chain.evolves_to) return arr;
+    const evArr = data.chain.evolves_to;
 
-    const getPokemonNames = (evArr: ChainLink[]) => {
-      if (evArr.length === 0) return false;
-      const speciesNames = [];
+    if (evArr.length === 0) return [];
 
-      for (let i = 0; i < evArr.length; i++) {
-        if (evArr[i].species) {
-          speciesNames.push(evArr[i].species.name);
+    const speciesNames: { name: string; trigger: string | number | null }[][] = [];
+    for (let i = 0; i < evArr.length; i++) {
+      const evPokemonObjs: { name: string; trigger: string | number | null }[] = [];
+      const res: { name: string; trigger: string | number | null }[][] = [];
+
+      const createObject = (data: ChainLink) => ({
+        name: data.species.name,
+        trigger:
+          data.evolution_details[data.evolution_details.length - 1]?.item?.name ||
+          data.evolution_details[data.evolution_details.length - 1]?.held_item?.name ||
+          data.evolution_details[data.evolution_details.length - 1]?.min_level ||
+          null
+      });
+
+      evPokemonObjs.push(createObject(data.chain), createObject(evArr[i]));
+
+      const evTo = (evArray: ChainLink[]) => {
+        for (let j = 0; j < evArray.length; j++) {
+          res.push([...evPokemonObjs, createObject(evArray[j])]);
         }
-        if (evArr[i].evolves_to) {
-          getPokemonNames(evArr[i].evolves_to);
-        }
+      };
+      if (evArr[i].evolves_to.length) {
+        evTo(evArr[i].evolves_to);
       }
-      arr.push(speciesNames);
-      console.log(speciesNames);
-    };
-    getPokemonNames(data.chain.evolves_to);
-    arr.reverse();
-    arr.unshift([data.chain.species.name]);
-    return arr;
+      if (!res.length) {
+        res.push([createObject(data.chain), createObject(evArr[i])]);
+      }
+      speciesNames.push(...res);
+    }
+
+    return [...speciesNames];
   };
 
   // Доделать цепочку эволюции
+  // Добавить подгрузку картинок предметов
 
-  console.log(chainArr(evChainData));
+  const evChainTriggersItems = chainOfPokemons(evChainData).reduce(
+    (acc: (string | number | null)[], item) => {
+      const a = item.filter((i) => typeof i.trigger === 'string').map((k) => k.trigger);
+      return [...acc, ...a];
+    },
+    []
+  );
+
+  console.log('evChainTriggersItems', evChainTriggersItems);
 
   return (
     <div className={styles.evolution}>
       <h2>Evolution Chain</h2>
       id:{id}
+      <ul />
     </div>
   );
 };
