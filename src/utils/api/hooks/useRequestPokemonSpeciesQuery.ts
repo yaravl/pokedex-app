@@ -9,6 +9,10 @@ export const useRequestPokemonSpeciesQuery = ({ id, options = {} }: UsePokemonSp
     ['pokemon-species', id],
     () => requestPokemonSpecies({ params: { id } }),
     {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      retry: 1,
+      refetchInterval: false,
       ...options
     }
   );

@@ -14,6 +14,9 @@ export const useRequestPokemonInfiniteQuery = ({
         params: { limit: 9, offset: pageParam }
       }),
     {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      retry: 1,
       ...options,
       getNextPageParam: (lastPage, allPages) => {
         const nextPage = lastPage.next

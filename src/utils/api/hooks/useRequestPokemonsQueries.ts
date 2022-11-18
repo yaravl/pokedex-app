@@ -12,7 +12,9 @@ export const useRequestPokemonsQueries = ({ offset = 0 }: UseRequestPokemonQueri
       ...Array.from({ length: offset }).map((query, index) => ({
         queryKey: ['pokemon', index + 1],
         queryFn: () => requestPokemonById({ params: { id: index + 1 } }),
-        staleTime: Infinity
+        staleTime: Infinity,
+        cacheTime: Infinity,
+        retry: 1
       }))
     ]
   });

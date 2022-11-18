@@ -9,7 +9,7 @@ import { Pokemon } from './Pokemon/Pokemon';
 import styles from './PokemonsPage.module.css';
 
 export const PokemonsPage = () => {
-  const [pokemonId, setPokemonId] = React.useState<Pokemon['id'] | Pokemon['name'] | null>(null);
+  const [pokemonName, setPokemonName] = React.useState<Pokemon['name']>('');
   const { ref, inView } = useInView();
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
   const {
@@ -18,13 +18,7 @@ export const PokemonsPage = () => {
     isLoading,
     fetchNextPage,
     hasNextPage
-  } = useRequestPokemonInfiniteQuery({
-    options: {
-      retry: 1,
-      staleTime: 50000,
-      cacheTime: 50000
-    }
-  });
+  } = useRequestPokemonInfiniteQuery({});
 
   React.useEffect(() => {
     if (hasNextPage && inView) {
@@ -44,8 +38,8 @@ export const PokemonsPage = () => {
     []
   );
 
-  const handlePopupOpen = (id: number = 1) => {
-    setPokemonId(id);
+  const handlePopupOpen = (name: string) => {
+    setPokemonName(name);
     setIsPopupOpen(true);
   };
 
@@ -59,9 +53,6 @@ export const PokemonsPage = () => {
         NEXT PAGE
       </button>
 
-      <button className='border-2 p-2' onClick={() => handlePopupOpen()}>
-        popupopen
-      </button>
       <div className={styles.pokemons_container}>
         {pokemons.length > 0 &&
           pokemons.map((pokemon, index) => {
@@ -71,8 +62,8 @@ export const PokemonsPage = () => {
                 aria-label='pokemon-card'
                 role='button'
                 tabIndex={0}
-                onKeyDown={(e) => e.key === 'Enter' && handlePopupOpen(id)}
-                onClick={() => handlePopupOpen(id)}
+                onKeyDown={(e) => e.key === 'Enter' && handlePopupOpen(pokemon.name)}
+                onClick={() => handlePopupOpen(pokemon.name)}
                 className={styles.pokemon}
                 key={pokemon.name}
               >
@@ -86,7 +77,7 @@ export const PokemonsPage = () => {
         load more
       </button>
       <Popup onClose={() => setIsPopupOpen(false)} isOpen={isPopupOpen}>
-        <Pokemon pokemonId={pokemonId} />
+        <Pokemon pokemonName={pokemonName} />
       </Popup>
     </div>
   );

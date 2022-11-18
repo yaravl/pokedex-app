@@ -67,7 +67,7 @@ interface Pokemon {
   stats: PokemonStat[];
   /** A list of details showing types this Pokémon has */
   types: PokemonType[];
-  /** Data describing a Pokemon's types in a previous generation. */
+  /** Data describing a PokemonEvolutionCard's types in a previous generation. */
   past_types: PokemonPastType[];
 }
 
@@ -94,7 +94,7 @@ interface PokemonType {
 }
 
 /**
- * Data describing a Pokemon's types in a previous generation.
+ * Data describing a PokemonEvolutionCard's types in a previous generation.
  */
 interface PokemonPastType {
   /** The generation of this Pokémon Type. */
@@ -204,7 +204,7 @@ interface PokemonSprites {
   versions: VersionSprites;
 }
 
-/** Other Pokemon Sprites (Dream World and Official Artwork sprites) */
+/** Other PokemonEvolutionCard Sprites (Dream World and Official Artwork sprites) */
 interface OtherPokemonSprites {
   /** Dream World Sprites of this Pokémon */
   dream_world: DreamWorld;
@@ -578,7 +578,7 @@ interface LocationAreaEncounter {
 }
 
 /**
- * ## Pokemon Colors
+ * ## PokemonEvolutionCard Colors
  * Colors used for sorting Pokémon in a Pokédex.
  * The color listed in the Pokédex is usually the color most apparent or covering each Pokémon's body.
  * No orange category exists; Pokémon that are primarily orange are listed as red or brown.
@@ -605,7 +605,7 @@ interface PokemonColor {
 }
 
 /**
- * ## Pokemon Form
+ * ## PokemonEvolutionCard Form
  * Some Pokémon may appear in one of multiple, visually different forms.
  * These differences are purely cosmetic. For variations within a Pokémon species,
  * which do differ in more than just visuals, the 'Pokémon' entity is used to represent such a variety.
@@ -666,7 +666,7 @@ interface PokemonFormSprites {
 }
 
 /**
- * ## Pokemon Habitat
+ * ## PokemonEvolutionCard Habitat
  * Habitats are generally different terrain Pokémon can be found in
  * but can also be areas designated for rare or legendary Pokémon
  */
@@ -691,7 +691,7 @@ interface PokemonHabitat {
 }
 
 /**
- * ## Pokemon Shape
+ * ## PokemonEvolutionCard Shape
  * Shapes used for sorting Pokémon in a Pokédex
  */
 interface PokemonShape {
@@ -718,7 +718,7 @@ interface AwesomeName {
 }
 
 /**
- * ## Pokemon Species
+ * ## PokemonEvolutionCard Species
  * A Pokémon Species forms the basis for at least one Pokémon.
  * Attributes of a Pokémon species are shared across all varieties of Pokémon within the species.
  * A good example is Wormadam; Wormadam is the species which can be found in three different varieties,
@@ -990,6 +990,111 @@ interface Language {
   iso639: string;
   /** The two-letter code of the language. Note that it is not unique. */
   iso3166: string;
+  /** The name of this resource listed in different languages. */
+  names: Name[];
+}
+
+/** An item is an object in the games which the player can pick up, keep in their bag, and use in some manner. They have various uses, including healing, powering up, helping catch Pokémon, or to access a new area. */
+interface Item {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** The price of this item in stores. */
+  cost: number;
+  /** The power of the move Fling when used with this item. */
+  fling_power: number;
+  /** The effect of the move Fling when used with this item. */
+  fling_effect: NamedAPIResource<ItemFlingEffect>;
+  /** A list of attributes this item has. */
+  attributes: NamedAPIResource<ItemAttribute>[];
+  /** The category of items this item falls into. */
+  category: NamedAPIResource<ItemCategory>;
+  /** The effect of this ability listed in different languages. */
+  effect_entries: VerboseEffect[];
+  /** The flavor text of this ability listed in different languages. */
+  flavor_text_entries: VersionGroupFlavorText[];
+  /** A list of game indices relevent to this item by generation. */
+  game_indices: GenerationGameIndex[];
+  /** The name of this item listed in different languages. */
+  names: Name[];
+  /** A set of sprites used to depict this item in the game. */
+  sprites: ItemSprites;
+  /** A list of Pokémon that might be found in the wild holding this item. */
+  held_by_pokemon: ItemHolderPokemon[];
+  /** An evolution chain this item requires to produce a bay during mating. */
+  baby_trigger_for: APIResource<EvolutionChain>;
+  /** A list of the machines related to this item. */
+  machines: MachineVersionDetail[];
+}
+
+interface ItemSprites {
+  /** The default depiction of this item. */
+  default: string;
+}
+
+interface ItemHolderPokemon {
+  /** The Pokémon that holds this item. */
+  pokemon: NamedAPIResource<Pokemon>;
+  /** The details for the version that this item is held in by the Pokémon. */
+  version_details: ItemHolderPokemonVersionDetail[];
+}
+
+interface ItemHolderPokemonVersionDetail {
+  /** How often this Pokémon holds this item in this version. */
+  rarity: number;
+  /** The version that this item is held in by the Pokémon. */
+  version: NamedAPIResource<Version>;
+}
+
+/** Item attributes define particular aspects of items, e.g. "usable in battle" or "consumable". */
+interface ItemAttribute {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** A list of items that have this attribute. */
+  items: NamedAPIResource<Item>[];
+  /** The name of this item attribute listed in different languages. */
+  names: Name[];
+  /** The description of this item attribute listed in different languages. */
+  descriptions: Description[];
+}
+
+/** Item categories determine where items will be placed in the players bag. */
+interface ItemCategory {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** A list of items that are a part of this category. */
+  items: NamedAPIResource<Item>[];
+  /** The name of this item category listed in different languages. */
+  names: Name[];
+  /** The pocket items in this category would be put in. */
+  pocket: NamedAPIResource<ItemPocket>;
+}
+
+/** The various effects of the move "Fling" when used with different items. */
+interface ItemFlingEffect {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** The result of this fling effect listed in different languages. */
+  effect_entries: Effect[];
+  /** A list of items that have this fling effect. */
+  items: NamedAPIResource<Item>[];
+}
+
+/** Pockets within the players bag used for storing items by category. */
+interface ItemPocket {
+  /** The identifier for this resource. */
+  id: number;
+  /** The name for this resource. */
+  name: string;
+  /** A list of item categories that are relevant to this item pocket. */
+  categories: NamedAPIResource<ItemCategory>[];
   /** The name of this resource listed in different languages. */
   names: Name[];
 }

@@ -17,6 +17,10 @@ export const useRequestPokemonEvolutionChainQuery = ({
     ['evolution-chain', id],
     () => requestPokemonEvolutionChain({ params: { id } }),
     {
+      staleTime: Infinity,
+      cacheTime: Infinity,
+      retry: 1,
+      refetchInterval: false,
       ...options
     }
   );

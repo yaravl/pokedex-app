@@ -2,20 +2,19 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, PokemonStats, PokemonTypes } from '@common';
-import { useRequestPokemonQuery } from '@utils/api';
+import { useRequestPokemonQueryByName } from '@utils/api';
 
 import styles from './Pokemon.module.css';
 
 interface PokemonProps {
-  pokemonId: any;
+  pokemonName: string;
 }
 
-export const Pokemon: React.FC<PokemonProps> = ({ pokemonId }) => {
+export const Pokemon: React.FC<PokemonProps> = ({ pokemonName }) => {
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useRequestPokemonQuery({
-    params: { id: pokemonId },
-    options: { staleTime: 50000 }
+  const { data, isLoading, isError } = useRequestPokemonQueryByName({
+    params: { name: pokemonName }
   });
 
   if (isError) return <h5>Error!</h5>;
@@ -25,7 +24,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonId }) => {
     <div className={styles.pokemon}>
       <div className={styles.pokemon_header}>
         <h2>{data.name}</h2>
-        <div>#{pokemonId.toString().padStart(3, '0')}</div>
+        <div>#{data.id.toString().padStart(3, '0')}</div>
       </div>
 
       <div className={styles.pokemon_imgwrap}>
@@ -37,7 +36,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonId }) => {
 
       <Button
         onClick={() => {
-          navigate(`/pokemon/${pokemonId}`);
+          navigate(`/pokemon/${pokemonName}`);
         }}
       >
         Open

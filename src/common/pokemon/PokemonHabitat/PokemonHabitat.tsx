@@ -10,8 +10,7 @@ interface PokemonHabitatProps {
 
 export const PokemonHabitat: React.FC<PokemonHabitatProps> = ({ id }) => {
   const { data, isLoading, isError } = useRequestPokemonSpeciesQuery({
-    id,
-    options: { staleTime: Infinity, cacheTime: Infinity }
+    id
   });
 
   if (isError) return <h2>Error</h2>;

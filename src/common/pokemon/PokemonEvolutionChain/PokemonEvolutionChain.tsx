@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { PokemonEvolutionCard } from '@common/pokemon/PokemonEvolutionChain/PokemonEvolutionCard/PokemonEvolutionCard';
 import { useRequestPokemonEvolutionChainQuery, useRequestPokemonSpeciesQuery } from '@utils/api';
 import { getRequestIdNumber } from '@utils/helpers';
 
@@ -15,8 +16,7 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
     isLoading: speciesLoading,
     isError: speciesError
   } = useRequestPokemonSpeciesQuery({
-    id,
-    options: { staleTime: Infinity, cacheTime: Infinity, refetchInterval: false }
+    id
   });
 
   const evChainId = !speciesLoading ? getRequestIdNumber(speciesData, 'evolution_chain') : 0;
@@ -28,16 +28,13 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
   } = useRequestPokemonEvolutionChainQuery({
     id: evChainId,
     options: {
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchInterval: false,
       enabled: !!evChainId
     }
   });
   if (speciesLoading || evChainLoading) return <h2>Loading...</h2>;
   if (speciesError || evChainError) return <h2>Error...</h2>;
 
-  // console.log('Species-data', speciesData);
+  console.log('Species-data', speciesData);
   console.log('EvChain-data', evChainData);
 
   const chainOfPokemons = (data: typeof evChainData) => {
@@ -80,38 +77,22 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
     return [...speciesNames];
   };
 
-  // Доделать цепочку эволюции
-  // Добавить подгрузку картинок предметов
-
-  const evChainTriggersItems = chainOfPokemons(evChainData).reduce(
-    (acc: (string | number | null)[], item) => {
-      const a = item.filter((i) => typeof i.trigger === 'string').map((k) => k.trigger);
-      return [...acc, ...a];
-    },
-    []
-  );
-
-  console.log('evChainTriggersItems', evChainTriggersItems);
+  const arrOfChain = chainOfPokemons(evChainData);
 
   return (
     <div className={styles.evolution}>
       <h2>Evolution Chain</h2>
-      id:{id}
-      <ul />
+      {arrOfChain.map((item, index) => (
+        <ul key={index} className='flex'>
+          {item.map((pokemon) => (
+            <li key={pokemon.name} className='flex-1'>
+              <PokemonEvolutionCard name={pokemon.name} trigger={pokemon.trigger} />
+            </li>
+          ))}
+        </ul>
+      ))}
     </div>
   );
 };
 
-// chain - {}
-//  species - {}  = 1
-//    name - string
-//  evolute_to - []
-//    [0] - {}
-//      species - {}  = 2
-//        name - string
-//      evolves_to - []
-//        species - {}  = 3
-//          name - string
-
-// chain.evolute_to[0].species.name
-// chain.evolute_to[0].evolves_to[0].species.name
+// TODO: добавить стили
