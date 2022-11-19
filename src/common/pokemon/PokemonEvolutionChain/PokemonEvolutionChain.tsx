@@ -11,31 +11,24 @@ interface PokemonEvolutionChainProps {
 }
 
 export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id }) => {
-  const {
-    data: speciesData,
-    isLoading: speciesLoading,
-    isError: speciesError
-  } = useRequestPokemonSpeciesQuery({
+  const { data: speciesData } = useRequestPokemonSpeciesQuery({
     id
   });
 
-  const evChainId = !speciesLoading ? getRequestIdNumber(speciesData, 'evolution_chain') : 0;
+  const evChainId = speciesData && getRequestIdNumber(speciesData, 'evolution_chain');
 
   const {
     data: evChainData,
     isLoading: evChainLoading,
     isError: evChainError
   } = useRequestPokemonEvolutionChainQuery({
-    id: evChainId,
+    id: evChainId!,
     options: {
       enabled: !!evChainId
     }
   });
-  if (speciesLoading || evChainLoading) return <h2>Loading...</h2>;
-  if (speciesError || evChainError) return <h2>Error...</h2>;
-
-  console.log('Species-data', speciesData);
-  console.log('EvChain-data', evChainData);
+  if (evChainLoading) return <h2>Loading...</h2>;
+  if (evChainError) return <h2>Error...</h2>;
 
   const chainOfPokemons = (data: typeof evChainData) => {
     if (!data.chain.evolves_to.length) return [];
@@ -79,13 +72,15 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
 
   const arrOfChain = chainOfPokemons(evChainData);
 
+  if (arrOfChain.length === 0) return null;
+
   return (
     <div className={styles.evolution}>
       <h2>Evolution Chain</h2>
       {arrOfChain.map((item, index) => (
-        <ul key={index} className='flex'>
+        <ul key={index} className='mt-5 grid grid-cols-3 gap-5'>
           {item.map((pokemon) => (
-            <li key={pokemon.name} className='flex-1'>
+            <li key={pokemon.name} className=''>
               <PokemonEvolutionCard name={pokemon.name} trigger={pokemon.trigger} />
             </li>
           ))}
@@ -95,4 +90,4 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
   );
 };
 
-// TODO: добавить стили
+// TODO: вынести хук

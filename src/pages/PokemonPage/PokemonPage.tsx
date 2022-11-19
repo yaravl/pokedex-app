@@ -25,9 +25,9 @@ export const PokemonPage: React.FC = () => {
   return (
     <div className='container'>
       <PokemonHero pokemon={data} />
-      <div className={styles.evolution}>
-        <PokemonEvolutionChain id={data.id} />
-      </div>
+
+      <PokemonEvolutionChain id={data.id} />
+
       <div className={styles.info}>
         <div>
           <div className={styles.info_item}>

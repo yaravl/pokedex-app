@@ -12,5 +12,13 @@ export const PokemonItemTrigger: React.FC<PokemonItemTriggerProps> = ({ item }) 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error!</p>;
 
-  return <img alt={data.name} src={data.sprites.default} />;
+  return (
+    <img
+      alt={data.name}
+      src={data.sprites.default}
+      title={data.name.replace('-', ' ')}
+      width={28}
+      height={28}
+    />
+  );
 };
