@@ -4,7 +4,7 @@ import { HiOutlineArrowNarrowRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 import { PokemonItemTrigger } from '@common';
-import { useRequestPokemonQueryByName, useRequestPokemonSpeciesQuery } from '@utils/api';
+import { useRequestPokemonQuery, useRequestPokemonSpeciesQuery } from '@utils/api';
 
 import styles from './PokemonEvolutionCard.module.css';
 
@@ -14,7 +14,7 @@ interface PokemonEvolutionCardProps {
 }
 
 export const PokemonEvolutionCard: React.FC<PokemonEvolutionCardProps> = ({ name, trigger }) => {
-  const { data: pokemon } = useRequestPokemonQueryByName({ params: { name } });
+  const { data: pokemon } = useRequestPokemonQuery({ params: { name } });
 
   const pokemonId = pokemon?.id;
 

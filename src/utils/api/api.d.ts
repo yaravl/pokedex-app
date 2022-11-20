@@ -1,13 +1,5 @@
-interface UseRequestPokemonQueryByIdParams {
-  params: { id: number };
-  options?: Omit<
-    import('@tanstack/react-query').UseQueryOptions<Pokemon, import('axios').AxiosError>,
-    'queryFn' | 'queryKey'
-  >;
-}
-
-interface UseRequestPokemonQueryByNameParams {
-  params: { name: string };
+interface UseRequestPokemonQuery {
+  params: { name: Pokemon['name'] | Pokemon['id'] };
   options?: Omit<
     import('@tanstack/react-query').UseQueryOptions<Pokemon, import('axios').AxiosError>,
     'queryFn' | 'queryKey'

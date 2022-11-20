@@ -8,14 +8,14 @@ import {
   PokemonHero,
   PokemonStats
 } from '@common';
-import { useRequestPokemonQueryByName } from '@utils/api';
+import { useRequestPokemonQuery } from '@utils/api';
 
 import styles from './PokemonPage.module.css';
 
 export const PokemonPage: React.FC = () => {
   const { pokemonName } = useParams();
 
-  const { data, isLoading, isError } = useRequestPokemonQueryByName({
+  const { data, isLoading, isError } = useRequestPokemonQuery({
     params: { name: pokemonName! }
   });
 

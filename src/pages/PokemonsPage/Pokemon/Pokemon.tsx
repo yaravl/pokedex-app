@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, PokemonStats, PokemonTypes } from '@common';
-import { useRequestPokemonQueryByName } from '@utils/api';
+import { useRequestPokemonQuery } from '@utils/api';
 
 import styles from './Pokemon.module.css';
 
@@ -13,7 +13,7 @@ interface PokemonProps {
 export const Pokemon: React.FC<PokemonProps> = ({ pokemonName }) => {
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useRequestPokemonQueryByName({
+  const { data, isLoading, isError } = useRequestPokemonQuery({
     params: { name: pokemonName }
   });
 

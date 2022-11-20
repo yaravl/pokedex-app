@@ -5,7 +5,7 @@ import { useQueries, UseQueryResult } from '@tanstack/react-query';
 import { requestPokemonAbilityById } from '../requests';
 
 interface UseRequestPokemonAbilitiesQueryParams {
-  abilities: number[];
+  abilities: string[];
 }
 
 export const useRequestPokemonAbilitiesQuery = ({
@@ -13,11 +13,11 @@ export const useRequestPokemonAbilitiesQuery = ({
 }: UseRequestPokemonAbilitiesQueryParams): UseQueryResult<Ability, AxiosError>[] => {
   const queries = [
     ...Array.from({ length: abilities.length }).map((_, index) => {
-      const id = abilities[index];
+      const name = abilities[index];
 
       return {
-        queryKey: [`pokemon-ability${id}`, id],
-        queryFn: () => requestPokemonAbilityById({ params: { id } }),
+        queryKey: [`pokemon-ability`, name],
+        queryFn: () => requestPokemonAbilityById({ params: { name } }),
         staleTime: Infinity,
         cacheTime: Infinity,
         refetchOnWindowFocus: false,

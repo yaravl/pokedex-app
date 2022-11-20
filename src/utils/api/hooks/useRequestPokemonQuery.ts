@@ -2,16 +2,13 @@ import { AxiosError } from 'axios';
 
 import { useQuery } from '@tanstack/react-query';
 
-import { requestPokemonById } from '../requests';
+import { requestPokemon } from '../requests';
 
-export const useRequestPokemonQueryById = ({
-  params,
-  options = {}
-}: UseRequestPokemonQueryByIdParams) =>
+export const useRequestPokemonQuery = ({ params, options = {} }: UseRequestPokemonQuery) =>
   useQuery<Pokemon, AxiosError>(
-    ['pokemon', params.id],
+    ['pokemon', params.name],
     () =>
-      requestPokemonById({
+      requestPokemon({
         params
       }),
     { staleTime: Infinity, cacheTime: Infinity, retry: 1, ...options }
