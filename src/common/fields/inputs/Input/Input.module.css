@@ -1,0 +1,17 @@
+.label {
+    span {
+        @apply block text-sm text-gray-300;
+    }
+}
+
+.input {
+    @apply p-2 rounded-md shadow-md transition-all ease-in;
+
+    &:focus {
+        @apply outline-none drop-shadow-md
+    }
+
+    &:disabled {
+        @apply bg-gray-300;
+    }
+}

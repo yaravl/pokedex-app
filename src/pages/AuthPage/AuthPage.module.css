@@ -1,0 +1,8 @@
+.container {
+    @apply flex items-center justify-center h-screen;
+}
+
+.sign_up_form {
+    @apply flex flex-col gap-2;
+
+}

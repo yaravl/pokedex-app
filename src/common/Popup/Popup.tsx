@@ -15,7 +15,7 @@ const Portal: React.FC<PortalProps> = ({ children }) => {
     const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
     document.body.appendChild(container);
     document.body.style.overflow = 'hidden';
-    document.body.style.padding = `8rem ${scrollBarWidth}px 0 0`;
+    document.body.style.padding = `0 ${scrollBarWidth}px 0 0`;
     return () => {
       document.body.removeChild(container);
       document.body.style.overflow = '';

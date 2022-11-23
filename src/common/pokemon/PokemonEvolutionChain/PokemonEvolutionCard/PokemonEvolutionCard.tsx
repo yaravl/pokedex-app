@@ -32,8 +32,6 @@ export const PokemonEvolutionCard: React.FC<PokemonEvolutionCardProps> = ({ name
   if (isError) return <h2>Error!</h2>;
   if (isLoading) return <h2>Loading...</h2>;
 
-  console.log(pokemonSpecies);
-
   return (
     <div className={classNames(styles.card, `bg-elm-${pokemon?.types[0].type.name}`)}>
       <Link to={`/pokemon/${name}`} className={styles.card_img}>
