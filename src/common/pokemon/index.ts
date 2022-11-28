@@ -1,5 +1,6 @@
 export * from './PokemonAbilities/PokemonAbilities';
 export * from './PokemonEvolutionChain/PokemonEvolutionChain';
+export * from './PokemonEvolutionChainNew/PokemonEvolutionChainNew';
 export * from './PokemonHabitat/PokemonHabitat';
 export * from './PokemonHero/PokemonHero';
 export * from './PokemonItemTrigger/PokemonItemTrigger';

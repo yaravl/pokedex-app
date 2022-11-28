@@ -10,10 +10,7 @@ import {
   signOut
 } from 'firebase/auth';
 import { addDoc, collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: 'AIzaSyCJqd1HR_Z429PAUKPZn6KlhyCNd6hixqw',
   authDomain: 'pokemons-6b1fb.firebaseapp.com',

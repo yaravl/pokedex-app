@@ -1,5 +1,5 @@
 .container {
-    @apply flex items-center justify-center h-screen;
+    @apply flex flex-col items-center justify-center h-screen;
 }
 
 .sign_up_form {

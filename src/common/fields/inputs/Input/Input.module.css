@@ -5,10 +5,10 @@
 }
 
 .input {
-    @apply p-2 rounded-md shadow-md transition-all ease-in;
+    @apply p-2 rounded-md shadow-md transition-all ease-in outline-none;
 
     &:focus {
-        @apply outline-none drop-shadow-md
+        @apply  drop-shadow-md
     }
 
     &:disabled {

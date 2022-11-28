@@ -49,5 +49,3 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
     </div>
   );
 };
-
-// TODO: вынести хук

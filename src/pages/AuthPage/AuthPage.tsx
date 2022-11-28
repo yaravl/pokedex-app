@@ -3,54 +3,78 @@ import { useForm } from 'react-hook-form';
 
 import { Button, Input } from '@common';
 
-import { registerWithEmailAndPassword, User } from '../../firebase';
+import { logInWithEmailAndPassword, registerWithEmailAndPassword, User } from '../../firebase';
 
 import styles from './AuthPage.module.css';
+
+interface SignInFormValues {
+  email: User['email'];
+  password: string;
+}
+
+export const SignInForm: React.FC = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting }
+  } = useForm<SignInFormValues>();
+  return (
+    <form
+      className={styles.sign_up_form}
+      onSubmit={handleSubmit(({ password, email }) => logInWithEmailAndPassword(email, password))}
+    >
+      <Input type='email' placeholder='Email' {...register('email')} />
+      <Input type='password' placeholder='Password' {...register('password')} />
+
+      <Button type='submit' variant='outlined' disabled={isSubmitting}>
+        Sign In
+      </Button>
+    </form>
+  );
+};
 
 interface SignUpFormValues extends User {
   password: string;
 }
 
-export const AuthPage = () => {
+export const SignUpForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    reset,
-    formState,
-    formState: { isSubmitting, isSubmitSuccessful, isValid }
+    formState: { isSubmitting }
   } = useForm<SignUpFormValues>();
+
+  return (
+    <form
+      className={styles.sign_up_form}
+      onSubmit={handleSubmit(({ password, ...user }) =>
+        registerWithEmailAndPassword(user, password)
+      )}
+    >
+      <Input placeholder='First name' name='firstName' register={register} />
+      {/* <Input placeholder='Last name' {...register('lastName')} /> */}
+      {/* <Input placeholder='City' {...register('city')} /> */}
+      {/* <Input type='email' placeholder='Email' {...register('email')} /> */}
+      {/* <Input type='password' placeholder='Password' {...register('password')} /> */}
+
+      <Button type='submit' variant='outlined' disabled={isSubmitting}>
+        Sign Up
+      </Button>
+    </form>
+  );
+};
+
+export const AuthPage = () => {
   const [isSignUp, setIsSignUp] = React.useState(true);
-
-  const resetAsyncForm = React.useCallback(() => {
-    const result = { firstName: 'asd', lastName: 'asd', email: 'asd', city: 'asd' };
-    reset(result); // asynchronously reset your form values
-  }, [reset]);
-
-  React.useEffect(() => {
-    resetAsyncForm();
-  }, [resetAsyncForm]);
 
   return (
     <div className={styles.container}>
-      {isSignUp && (
-        <form
-          className={styles.sign_up_form}
-          onSubmit={handleSubmit(({ password, ...user }) =>
-            registerWithEmailAndPassword(user, password)
-          )}
-        >
-          <Input {...register('firstName')} placeholder='First name' />
-          <Input {...register('lastName')} placeholder='Last name' />
-          <Input type='email' {...register('email')} placeholder='Email' />
-          <Input type='password' {...register('password')} placeholder='Password' />
-
-          <Button type='submit' variant='outlined' disabled={isSubmitting}>
-            Sign Up
-          </Button>
-        </form>
-      )}
+      {!isSignUp ? <SignInForm /> : <SignUpForm />}{' '}
+      <button onClick={() => setIsSignUp(!isSignUp)}>
+        {isSignUp ? 'Already have account' : 'Sign Up'}
+      </button>
     </div>
   );
 };
 
-// TODO: 1:26
+// TODO: 1:40

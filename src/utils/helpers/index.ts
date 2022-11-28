@@ -4,6 +4,28 @@ export const getRequestIdNumber = (obj: any, str: string): number =>
 export const snakeCaseToTitleCase = (str: string) =>
   str.replace(/^(.)|-+(.)/g, (_, p1, p2) => (p1 ? p1.toUpperCase() : ` ${p2.toUpperCase()}`));
 
+export const generatePokemonChain = (
+  pokemonName: string,
+  chainLink: ChainLink
+): { prev: ChainLink | null; current: ChainLink; next: ChainLink[] } | undefined => {
+  if (chainLink.species.name === pokemonName)
+    return { prev: null, current: chainLink, next: chainLink.evolves_to };
+
+  let chain;
+
+  for (let i = 0; i < chainLink.evolves_to.length; i++) {
+    const evolve = chainLink.evolves_to[i];
+    if (evolve.species.name === pokemonName) {
+      chain = { prev: chainLink, current: evolve, next: evolve.evolves_to };
+      break;
+    }
+
+    chain = generatePokemonChain(pokemonName, evolve);
+  }
+
+  return chain;
+};
+
 export const getPokemonChain = (data: EvolutionChain) => {
   if (!data.chain.evolves_to.length) return [];
 
