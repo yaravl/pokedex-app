@@ -51,11 +51,11 @@ export const SignUpForm: React.FC = () => {
         registerWithEmailAndPassword(user, password)
       )}
     >
-      <Input placeholder='First name' name='firstName' register={register} />
-      {/* <Input placeholder='Last name' {...register('lastName')} /> */}
-      {/* <Input placeholder='City' {...register('city')} /> */}
-      {/* <Input type='email' placeholder='Email' {...register('email')} /> */}
-      {/* <Input type='password' placeholder='Password' {...register('password')} /> */}
+      <Input placeholder='First name' {...register('firstName')} />
+      <Input placeholder='Last name' {...register('lastName')} />
+      <Input placeholder='City' {...register('city')} />
+      <Input type='email' placeholder='Email' {...register('email')} />
+      <Input type='password' placeholder='Password' {...register('password')} />
 
       <Button type='submit' variant='outlined' disabled={isSubmitting}>
         Sign Up
