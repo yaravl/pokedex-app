@@ -1,3 +1,14 @@
+interface UseRequestMutationQuery<Func = {}> {
+  options?: Omit<
+    import('@tanstack/react-query').UseMutationOptions<
+      Awaited<ReturnType<Func>>,
+      import('axios').AxiosError,
+      any
+    >,
+    'mutationFn' | 'mutationKey'
+  >;
+}
+
 interface UseRequestPokemonQuery {
   params: { name: Pokemon['name'] | Pokemon['id'] };
   options?: Omit<

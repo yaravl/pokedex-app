@@ -15,7 +15,8 @@ export default defineConfig({
       '@utils/api': path.resolve(__dirname, './src/utils/api'),
       '@utils/constants': path.resolve(__dirname, './src/utils/constants'),
       '@utils/hooks': path.resolve(__dirname, './src/utils/hooks'),
-      '@utils/helpers': path.resolve(__dirname, './src/utils/helpers')
+      '@utils/helpers': path.resolve(__dirname, './src/utils/helpers'),
+      '@utils/firebase': path.resolve(__dirname, './src/utils/firebase')
     }
   }
 });

@@ -1,3 +1,9 @@
+interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  city: string;
+}
 /**
  * The name and the URL of the referenced resource
  */
