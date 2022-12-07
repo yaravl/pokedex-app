@@ -1,5 +1,3 @@
-import { AxiosError } from 'axios';
-
 import { useMutation } from '@tanstack/react-query';
 
 import { logInWithEmailAndPassword } from '../requests/logInWithEmailAndPassword';
@@ -18,5 +16,3 @@ export const useLogInWithEmailAndPasswordMutation = (
       logInWithEmailAndPassword(params.email, params.password),
     options.options
   );
-
-// TODO: 25:00

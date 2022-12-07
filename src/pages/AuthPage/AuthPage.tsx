@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Button } from '@common';
+
 import { SignInForm, SignUpForm } from './components';
 
 import styles from './AuthPage.module.css';
@@ -10,11 +12,9 @@ export const AuthPage = () => {
   return (
     <div className={styles.container}>
       {!isSignUp ? <SignInForm /> : <SignUpForm />}{' '}
-      <button onClick={() => setIsSignUp(!isSignUp)}>
+      <Button variant='link' onClick={() => setIsSignUp(!isSignUp)}>
         {isSignUp ? 'Already have account' : 'Sign Up'}
-      </button>
+      </Button>
     </div>
   );
 };
-
-// TODO: 1:40

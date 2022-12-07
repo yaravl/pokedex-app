@@ -3,7 +3,7 @@ import React from 'react';
 
 import styles from './Button.module.css';
 
-type ButtonVariant = 'contained' | 'outlined';
+type ButtonVariant = 'contained' | 'outlined' | 'link';
 interface ButtonProps extends React.ComponentPropsWithRef<'button'> {
   children: React.ReactNode;
   variant?: ButtonVariant;

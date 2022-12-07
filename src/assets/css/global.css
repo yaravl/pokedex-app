@@ -23,6 +23,8 @@
     --elm-rock: #cec18c;
     --elm-steel: #b8b8d0;
     --elm-water: #60a5fa;
+
+    --bg-cover-img: "../img/cover.jpg";
 }
 
 html {
