@@ -2,12 +2,12 @@
     @apply relative max-w-[320px] w-full;
 
     span {
-        @apply absolute z-10 -top-[10px] left-1 block text-sm text-gray-300 bg-white px-1 rounded border border-gray-100;
+        @apply absolute z-10 -top-[12px] left-1 block text-sm text-gray-300 bg-white px-1 rounded border border-gray-100;
     }
 }
 
 .input {
-    @apply w-[280px] p-2 rounded-md shadow-md transition-all ease-in outline-none;
+    @apply w-[280px] p-2 pt-3 rounded-md shadow-md transition-all ease-in outline-none;
 
     &:focus {
         @apply  drop-shadow-md;

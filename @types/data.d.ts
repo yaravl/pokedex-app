@@ -1,8 +1,7 @@
 interface User {
-  firstName: string;
-  lastName: string;
+  name: string;
   email: string;
-  city: string;
+  favoritePokemon: string;
 }
 /**
  * The name and the URL of the referenced resource

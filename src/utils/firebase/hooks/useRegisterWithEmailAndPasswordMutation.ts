@@ -7,7 +7,9 @@ interface UseRegisterWithEmailAndPasswordMutation {
   password: string;
 }
 
-export const useRegisterWithEmailAndPasswordMutation = (options: UseRequestMutationQuery = {}) =>
+export const useRegisterWithEmailAndPasswordMutation = (
+  options: UseRequestMutationQuery<typeof registerWithEmailAndPassword> = {}
+) =>
   useMutation(
     ['signUp'],
     (params: UseRegisterWithEmailAndPasswordMutation) =>
