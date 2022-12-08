@@ -1,12 +1,13 @@
 .label {
-    @apply max-w-[320px] w-full;
+    @apply relative max-w-[320px] w-full;
+
     span {
-        @apply block text-sm text-gray-300;
+        @apply absolute z-10 -top-[10px] left-1 block text-sm text-gray-300 bg-white px-1 rounded border border-gray-100;
     }
 }
 
 .input {
-    @apply w-full p-2 rounded-md shadow-md transition-all ease-in outline-none;
+    @apply w-[280px] p-2 rounded-md shadow-md transition-all ease-in outline-none;
 
     &:focus {
         @apply  drop-shadow-md;
@@ -15,8 +16,16 @@
     &:disabled {
         @apply bg-gray-300;
     }
+
+    &_error {
+        @apply border border-red-400;
+    }
+
+    &_success {
+        @apply border border-green-400;
+    }
 }
 
 .error {
-    @apply text-xs text-red-400;
+    @apply mt-1 text-xs text-red-400;
 }

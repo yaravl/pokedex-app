@@ -13,7 +13,7 @@ export const AuthPage = () => {
     <div className={styles.container}>
       {!isSignUp ? <SignInForm /> : <SignUpForm />}{' '}
       <Button variant='link' onClick={() => setIsSignUp(!isSignUp)}>
-        {isSignUp ? 'Already have account' : 'Sign Up'}
+        {isSignUp ? 'Already have account' : 'Create new account'}
       </Button>
     </div>
   );

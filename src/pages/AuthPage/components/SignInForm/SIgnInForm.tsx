@@ -32,7 +32,14 @@ export const SignInForm: React.FC = () => {
           type='email'
           placeholder='Email'
           error={errors.email?.message}
-          {...register('email', { required: 'Email format would be asd@asd.com' })}
+          {...register('email', {
+            required: 'Email is required',
+            pattern: {
+              value:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              message: 'Please enter a valid email'
+            }
+          })}
         />
         <Input
           type='password'
@@ -40,11 +47,11 @@ export const SignInForm: React.FC = () => {
           error={errors.password?.message}
           {...register('password', {
             required: 'Password is required',
-            minLength: { value: 6, message: 'Password would be more then 6 characters' }
+            minLength: { value: 6, message: 'Password must be more then 6 characters' }
           })}
         />
 
-        <Button type='submit' variant='outlined' disabled={isSubmitting}>
+        <Button type='submit' variant='contained' disabled={isSubmitting}>
           Sign In
         </Button>
       </form>
