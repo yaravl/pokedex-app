@@ -1,8 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '@common';
+import { emailSchema, passwordSchema, ROUTES } from '@utils/constants';
+import { useStore } from '@utils/contexts';
 import { useRegisterWithEmailAndPasswordMutation } from '@utils/firebase';
+import { setCookie } from '@utils/helpers';
 
 import styles from '../../AuthPage.module.css';
 
@@ -11,12 +15,28 @@ interface SignUpFormValues extends User {
 }
 
 export const SignUpForm: React.FC = () => {
-  const { mutate } = useRegisterWithEmailAndPasswordMutation();
+  const navigate = useNavigate();
+  const { setStore } = useStore();
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors }
   } = useForm<SignUpFormValues>();
+
+  const { mutate, isLoading: isLoadingRegisterWithEmailAndPassword } =
+    useRegisterWithEmailAndPasswordMutation({
+      options: {
+        onSuccess: (data) => {
+          console.log('@@@data');
+          setCookie('POKEMONS-AUTH', !!data && data.user.uid);
+          navigate(ROUTES.POKEMONS);
+          setStore({ sessions: { isSignIn: true } });
+        }
+      }
+    });
+
+  const isLoading = isLoadingRegisterWithEmailAndPassword || isSubmitting;
 
   return (
     <>
@@ -25,32 +45,30 @@ export const SignUpForm: React.FC = () => {
         className={styles.sign_up_form}
         onSubmit={handleSubmit(({ password, ...user }) => mutate({ user, password }))}
       >
-        <Input placeholder='Name' {...register('name')} />
-        <Input placeholder='Favorite Pokemon' {...register('favoritePokemon')} />
+        <Input
+          placeholder='Name'
+          error={errors.name?.message}
+          {...register('name', { required: 'Name is required' })}
+        />
+        <Input
+          placeholder='Favorite Pokemon'
+          error={errors.favoritePokemon?.message}
+          {...register('favoritePokemon')}
+        />
         <Input
           type='email'
           placeholder='Email'
           error={errors.email?.message}
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: 'Please enter a valid email'
-            }
-          })}
+          {...register('email', emailSchema)}
         />
         <Input
           type='password'
           placeholder='Password'
           error={errors.password?.message}
-          {...register('password', {
-            required: 'Password is required',
-            minLength: { value: 6, message: 'Password must be more then 6 characters' }
-          })}
+          {...register('password', passwordSchema)}
         />
 
-        <Button type='submit' variant='contained' disabled={isSubmitting}>
+        <Button type='submit' variant='contained' isLoading={isLoading}>
           Sign Up
         </Button>
       </form>

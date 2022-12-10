@@ -1,8 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '@common';
+import { emailSchema, passwordSchema, ROUTES } from '@utils/constants';
+import { useStore } from '@utils/contexts';
 import { useLogInWithEmailAndPasswordMutation } from '@utils/firebase';
+import { setCookie } from '@utils/helpers';
 
 import styles from '../../AuthPage.module.css';
 
@@ -12,15 +16,30 @@ interface SignInFormValues {
 }
 
 export const SignInForm: React.FC = () => {
-  const { mutate } = useLogInWithEmailAndPasswordMutation({
-    options: { onError: (error) => console.log('@@@error', error.message) }
-  });
+  const navigate = useNavigate();
+  const { setStore } = useStore();
+
+  const { mutate, isLoading: isLoadingLogInWithEmailAndPassword } =
+    useLogInWithEmailAndPasswordMutation({
+      options: {
+        onError: (error) => console.log('@@@error', error.message),
+        onSuccess: (data) => {
+          console.log('@@@login', data.user);
+          setCookie('POKEMONS-AUTH', !!data && data.user.uid);
+          navigate(ROUTES.POKEMONS);
+          setStore({ sessions: { isSignIn: true } });
+        }
+      }
+    });
+
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, errors }
   } = useForm<SignInFormValues>();
-  console.log(errors);
+
+  const isLoading = isLoadingLogInWithEmailAndPassword || isSubmitting;
+
   return (
     <>
       <h1 className={styles.title}>Sign In</h1>
@@ -32,29 +51,23 @@ export const SignInForm: React.FC = () => {
           type='email'
           placeholder='Email'
           error={errors.email?.message}
-          {...register('email', {
-            required: 'Email is required',
-            pattern: {
-              value:
-                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              message: 'Please enter a valid email'
-            }
-          })}
+          {...register('email', emailSchema)}
         />
         <Input
           type='password'
           placeholder='Password'
           error={errors.password?.message}
-          {...register('password', {
-            required: 'Password is required',
-            minLength: { value: 6, message: 'Password must be more then 6 characters' }
-          })}
+          {...register('password', passwordSchema)}
         />
 
-        <Button type='submit' variant='contained' disabled={isSubmitting}>
+        <Button type='submit' variant='contained' isLoading={isLoading}>
           Sign In
         </Button>
+        {isLoading && <p>LOADING...</p>}
       </form>
     </>
   );
 };
+
+
+// TODO: 55:00

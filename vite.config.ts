@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   resolve: {
@@ -16,7 +15,8 @@ export default defineConfig({
       '@utils/constants': path.resolve(__dirname, './src/utils/constants'),
       '@utils/hooks': path.resolve(__dirname, './src/utils/hooks'),
       '@utils/helpers': path.resolve(__dirname, './src/utils/helpers'),
-      '@utils/firebase': path.resolve(__dirname, './src/utils/firebase')
+      '@utils/firebase': path.resolve(__dirname, './src/utils/firebase'),
+      '@utils/contexts': path.resolve(__dirname, './src/utils/contexts')
     }
   }
 });

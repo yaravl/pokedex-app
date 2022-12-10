@@ -65,3 +65,50 @@ export const getPokemonChain = (data: EvolutionChain) => {
 
   return [...speciesNames];
 };
+
+// COOKIES FUNCTIONS
+
+export const setCookie = (
+  name: string,
+  value: string | number | boolean | null,
+  props: any = {}
+) => {
+  const cookieOptions: any = props;
+
+  if (typeof props.expires === 'number' && props.expires) {
+    const date = new Date();
+    date.setTime(date.getTime() + props.expires * 1000);
+    cookieOptions.expires = date;
+  }
+
+  if (props.expires && props.expires.toUTCString) {
+    cookieOptions.expires = props.expires.toUTCString();
+  }
+
+  const cookieValue = value ? encodeURIComponent(value) : null;
+  let updatedCookie = `${name}=${cookieValue}`;
+  Object.keys(cookieOptions).forEach((propName) => {
+    updatedCookie += `; ${propName}`;
+
+    const propValue = cookieOptions[propName];
+
+    if (propValue !== true) {
+      updatedCookie += `=${propValue}`;
+    }
+  });
+
+  document.cookie = updatedCookie;
+};
+
+export const getCookie = (name: string) => {
+  const matches = document.cookie.match(
+    new RegExp(`(?:^|; )${name.replace(/([.$?*|{}()[\]\\/+^])/g, '\\$1')}=([^;]*)`)
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+};
+
+export const deleteCookie = (name: string) => {
+  setCookie(name, null, { expires: -1 });
+};
+
+// TODO: вынести функции в отдельные файлы

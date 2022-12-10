@@ -26,7 +26,8 @@
       "@utils/constants": ["./utils/constants"],
       "@utils/hooks": ["./utils/hooks"],
       "@utils/helpers": ["./utils/helpers"],
-      "@utils/firebase": ["./utils/firebase"]
+      "@utils/firebase": ["./utils/firebase"],
+      "@utils/contexts": ["./utils/contexts"]
     }
   },
   "include": [

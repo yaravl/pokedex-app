@@ -15,6 +15,6 @@ export const registerWithEmailAndPassword = async (user: User, password: string)
 
     return response;
   } catch (err) {
-    console.error(err);
+    console.log(err);
   }
 };

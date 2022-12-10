@@ -14,9 +14,5 @@ export const useRegisterWithEmailAndPasswordMutation = (
     ['signUp'],
     (params: UseRegisterWithEmailAndPasswordMutation) =>
       registerWithEmailAndPassword(params.user, params.password),
-    {
-      ...options,
-      onSuccess: (data) => console.log(data),
-      onError: (error) => console.log(error)
-    }
+    options.options
   );
