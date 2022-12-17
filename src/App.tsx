@@ -27,7 +27,8 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path={ROUTES.POKEMONS} element={<PokemonsPage />} />
             <Route path={ROUTES.POKEMON} element={<PokemonPage />} />
-          </Route>{' '}
+            <Route path='*' element={<h1>404!</h1>} />
+          </Route>
         </Routes>
       ) : (
         <Auth />

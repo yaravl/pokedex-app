@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input } from '@common';
 import { emailSchema, passwordSchema, ROUTES } from '@utils/constants';
 import { useStore } from '@utils/contexts';
-import { useLogInWithEmailAndPasswordMutation } from '@utils/firebase';
+import { useLogInWithEmailAndPasswordMutation, useLogInWithGoogleMutation } from '@utils/firebase';
 import { setCookie } from '@utils/helpers';
 
 import styles from '../../AuthPage.module.css';
@@ -18,6 +18,18 @@ interface SignInFormValues {
 export const SignInForm: React.FC = () => {
   const navigate = useNavigate();
   const { setStore } = useStore();
+  const { mutate: mutateLogInWithGoogle, isLoading: isLoadingLogInWithGoogle } =
+    useLogInWithGoogleMutation({
+      options: {
+        onError: (error) => console.log('@@@error', error.message),
+        onSuccess: (data) => {
+          console.log('@@@login', !!data && data.user);
+          setCookie('POKEMONS-AUTH', !!data && data.user.uid);
+          navigate(ROUTES.POKEMONS);
+          setStore({ sessions: { isSignIn: true } });
+        }
+      }
+    });
 
   const { mutate, isLoading: isLoadingLogInWithEmailAndPassword } =
     useLogInWithEmailAndPasswordMutation({
@@ -65,9 +77,9 @@ export const SignInForm: React.FC = () => {
         </Button>
         {isLoading && <p>LOADING...</p>}
       </form>
+      <Button onClick={() => mutateLogInWithGoogle({})}>GOOGLE</Button>
     </>
   );
 };
 
-
-// TODO: 55:00
+// TODO: 1:35
