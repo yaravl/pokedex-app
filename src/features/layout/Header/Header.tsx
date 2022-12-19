@@ -17,6 +17,7 @@ export const Header: React.FC = () => (
       <div className={styles.header_navigation}>
         <Link to='/pokemon/1'>-Pokemon-</Link>
         <Link to={ROUTES.POKEMONS}>Pokemons</Link>
+        <Link to={ROUTES.PROFILE}>Profile</Link>
       </div>
     </div>
   </div>

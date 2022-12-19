@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, PokemonStats, PokemonTypes } from '@common';
 import { useRequestPokemonQuery } from '@utils/api';
+import { useStore } from '@utils/contexts';
 
 import styles from './Pokemon.module.css';
 
@@ -11,6 +12,8 @@ interface PokemonProps {
 }
 
 export const Pokemon: React.FC<PokemonProps> = ({ pokemonName }) => {
+  const { sessions } = useStore();
+
   const navigate = useNavigate();
 
   const { data, isLoading, isError } = useRequestPokemonQuery({
@@ -41,6 +44,16 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonName }) => {
       >
         Open
       </Button>
+
+      {sessions.isSignIn && (
+        <Button
+          onClick={() => {
+            navigate(`/pokemon/${pokemonName}`);
+          }}
+        >
+          Add to favorites
+        </Button>
+      )}
     </div>
   );
 };

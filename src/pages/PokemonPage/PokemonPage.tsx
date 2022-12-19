@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import {
   PokemonAbilities,
-  PokemonEvolutionChainNew,
+  PokemonEvolutionChain,
   PokemonHabitat,
   PokemonHero,
   PokemonStats
@@ -26,7 +26,7 @@ export const PokemonPage: React.FC = () => {
     <div className='container'>
       <PokemonHero pokemon={data} />
 
-      <PokemonEvolutionChainNew id={data.id} />
+      <PokemonEvolutionChain id={data.id} />
 
       <div className={styles.info}>
         <div>

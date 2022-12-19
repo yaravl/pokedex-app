@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { getCookie } from '@utils/helpers';
+import { useAuthState } from '@utils/firebase';
 
 import { StoreContext, StoreContextProps } from './StoreContext';
 
@@ -9,9 +9,17 @@ interface StoreProviderProps {
 }
 
 export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
+  const { user } = useAuthState();
   const [store, setStore] = React.useState<StoreContextProps['store']>({
-    sessions: { isSignIn: !!getCookie('POKEMONS-AUTH') }
+    sessions: { isSignIn: false },
+    user: null
   });
+  console.log(store.user);
+  React.useEffect(() => {
+    if (user) {
+      setStore((store) => ({ ...store, sessions: { isSignIn: true }, user }));
+    }
+  }, [user]);
 
   const value = React.useMemo(() => ({ store, setStore }), [store]);
 

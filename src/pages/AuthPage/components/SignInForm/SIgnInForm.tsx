@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, Input } from '@common';
+import type { UserCredential } from '@firebase/auth';
 import { emailSchema, passwordSchema, ROUTES } from '@utils/constants';
 import { useStore } from '@utils/contexts';
 import { useLogInWithEmailAndPasswordMutation, useLogInWithGoogleMutation } from '@utils/firebase';
@@ -18,16 +19,19 @@ interface SignInFormValues {
 export const SignInForm: React.FC = () => {
   const navigate = useNavigate();
   const { setStore } = useStore();
+
+  const onSuccessSignIn = (data: UserCredential | undefined) => {
+    console.log('@@@login', !!data && data.user);
+    setCookie('POKEMONS-AUTH', !!data && data.user.uid);
+    navigate(ROUTES.POKEMONS);
+    setStore({ sessions: { isSignIn: true }, user: data?.user });
+  };
+
   const { mutate: mutateLogInWithGoogle, isLoading: isLoadingLogInWithGoogle } =
     useLogInWithGoogleMutation({
       options: {
         onError: (error) => console.log('@@@error', error.message),
-        onSuccess: (data) => {
-          console.log('@@@login', !!data && data.user);
-          setCookie('POKEMONS-AUTH', !!data && data.user.uid);
-          navigate(ROUTES.POKEMONS);
-          setStore({ sessions: { isSignIn: true } });
-        }
+        onSuccess: onSuccessSignIn
       }
     });
 
@@ -35,12 +39,7 @@ export const SignInForm: React.FC = () => {
     useLogInWithEmailAndPasswordMutation({
       options: {
         onError: (error) => console.log('@@@error', error.message),
-        onSuccess: (data) => {
-          console.log('@@@login', data.user);
-          setCookie('POKEMONS-AUTH', !!data && data.user.uid);
-          navigate(ROUTES.POKEMONS);
-          setStore({ sessions: { isSignIn: true } });
-        }
+        onSuccess: onSuccessSignIn
       }
     });
 
@@ -82,4 +81,4 @@ export const SignInForm: React.FC = () => {
   );
 };
 
-// TODO: 1:35
+// TODO: Доделать кнопку гугла

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import { Layout } from '@features/layout';
-import { AuthPage, PokemonPage, PokemonsPage } from '@pages';
+import { AuthPage, PokemonPage, PokemonsPage, ProfilePage } from '@pages';
 import { ROUTES } from '@utils/constants';
 import { useStore } from '@utils/contexts';
 
@@ -27,6 +27,7 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path={ROUTES.POKEMONS} element={<PokemonsPage />} />
             <Route path={ROUTES.POKEMON} element={<PokemonPage />} />
+            <Route path={ROUTES.PROFILE} element={<ProfilePage />} />
             <Route path='*' element={<h1>404!</h1>} />
           </Route>
         </Routes>

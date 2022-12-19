@@ -1,7 +1,9 @@
+import type { UserInfo } from 'firebase/auth';
 import React from 'react';
 
 export type Store = {
   sessions: { isSignIn: boolean };
+  user: UserInfo | null;
 };
 export interface StoreContextProps {
   store: Store;
@@ -10,6 +12,6 @@ export interface StoreContextProps {
 }
 
 export const StoreContext = React.createContext<StoreContextProps>({
-  store: { sessions: { isSignIn: false } },
+  store: { sessions: { isSignIn: false }, user: null },
   setStore: () => {}
 });
