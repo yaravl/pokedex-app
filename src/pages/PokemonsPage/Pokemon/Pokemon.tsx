@@ -4,15 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { Button, PokemonStats, PokemonTypes } from '@common';
 import { useRequestPokemonQuery } from '@utils/api';
 import { useStore } from '@utils/contexts';
+import { useAddDocumentMutation } from '@utils/firebase';
 
 import styles from './Pokemon.module.css';
 
 interface PokemonProps {
   pokemonName: string;
+  onClose: () => void;
 }
 
-export const Pokemon: React.FC<PokemonProps> = ({ pokemonName }) => {
-  const { sessions } = useStore();
+export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
+  const { sessions, user } = useStore();
+  const addDocumentMutation = useAddDocumentMutation({
+    options: {
+      onSuccess: (data) => {
+        onClose();
+        return data;
+      }
+    }
+  });
 
   const navigate = useNavigate();
 
@@ -47,9 +57,13 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonName }) => {
 
       {sessions.isSignIn && (
         <Button
-          onClick={() => {
-            navigate(`/pokemon/${pokemonName}`);
-          }}
+          isLoading={addDocumentMutation.isLoading}
+          onClick={() =>
+            addDocumentMutation.mutate({
+              collectionName: 'pokemons',
+              data: { uid: user.uid, pokemonName }
+            })
+          }
         >
           Add to favorites
         </Button>

@@ -2,10 +2,10 @@ import { addDoc, collection } from 'firebase/firestore';
 
 import type { DocumentData, WithFieldValue } from '@firebase/firestore';
 
-import { database } from '../instance';
+import { Collection, database } from '../instance';
 
 export const addDocument = <T extends WithFieldValue<DocumentData>>(
-  collectionName: string,
+  collectionName: Collection,
   data: T
 ) => addDoc(collection(database, collectionName), data);
 

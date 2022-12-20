@@ -77,7 +77,7 @@ export const PokemonsPage = () => {
         load more
       </button>
       <Popup onClose={() => setIsPopupOpen(false)} isOpen={isPopupOpen}>
-        <Pokemon pokemonName={pokemonName} />
+        <Pokemon pokemonName={pokemonName} onClose={() => setIsPopupOpen(false)} />
       </Popup>
     </div>
   );

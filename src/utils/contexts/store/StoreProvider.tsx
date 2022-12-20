@@ -1,3 +1,4 @@
+import { User } from 'firebase/auth';
 import React from 'react';
 
 import { useAuthState } from '@utils/firebase';
@@ -12,7 +13,7 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const { user } = useAuthState();
   const [store, setStore] = React.useState<StoreContextProps['store']>({
     sessions: { isSignIn: false },
-    user: null
+    user: {} as User
   });
   console.log(store.user);
   React.useEffect(() => {
