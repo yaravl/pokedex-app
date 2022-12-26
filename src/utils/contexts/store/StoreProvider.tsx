@@ -13,9 +13,10 @@ export const StoreProvider: React.FC<StoreProviderProps> = ({ children }) => {
   const { user } = useAuthState();
   const [store, setStore] = React.useState<StoreContextProps['store']>({
     sessions: { isSignIn: false },
-    user: {} as User
+    user: {} as User,
+    pokemons: { myPokemons: [] }
   });
-  console.log(store.user);
+
   React.useEffect(() => {
     if (user) {
       setStore((store) => ({ ...store, sessions: { isSignIn: true }, user }));

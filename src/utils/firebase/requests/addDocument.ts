@@ -8,5 +8,3 @@ export const addDocument = <T extends WithFieldValue<DocumentData>>(
   collectionName: Collection,
   data: T
 ) => addDoc(collection(database, collectionName), data);
-
-// TODO: 36:51

@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Button, PokemonStats, PokemonTypes } from '@common';
 import { useRequestPokemonQuery } from '@utils/api';
 import { useStore } from '@utils/contexts';
-import { useAddDocumentMutation } from '@utils/firebase';
+import {
+  useAddDocumentMutation,
+  useUpdateUsersMutation,
+  useUsersCollection
+} from '@utils/firebase';
 
 import styles from './Pokemon.module.css';
 
@@ -14,11 +18,27 @@ interface PokemonProps {
 }
 
 export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
-  const { sessions, user } = useStore();
+  const {
+    sessions,
+    user,
+    pokemons: { myPokemons }
+  } = useStore();
+
+  const { userData } = useUsersCollection(user.uid, myPokemons);
+
   const addDocumentMutation = useAddDocumentMutation({
     options: {
       onSuccess: (data) => {
         onClose();
+        return data;
+      }
+    }
+  });
+
+  const updateUsersMutation = useUpdateUsersMutation({
+    options: {
+      onSuccess: (data) => {
+        console.log(data);
         return data;
       }
     }
@@ -32,7 +52,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
 
   if (isError) return <h5>Error!</h5>;
   if (isLoading) return <h5>Loading...</h5>;
-
+  console.log(userData);
   return (
     <div className={styles.pokemon}>
       <div className={styles.pokemon_header}>
@@ -59,9 +79,10 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
         <Button
           isLoading={addDocumentMutation.isLoading}
           onClick={() =>
-            addDocumentMutation.mutate({
-              collectionName: 'pokemons',
-              data: { uid: user.uid, pokemonName }
+            updateUsersMutation.mutate({
+              collectionName: 'users',
+              userId: user.uid,
+              data: { myPokemons: [pokemonName] }
             })
           }
         >

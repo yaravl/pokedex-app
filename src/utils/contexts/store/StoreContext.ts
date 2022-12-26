@@ -4,6 +4,7 @@ import React from 'react';
 export type Store = {
   sessions: { isSignIn: boolean };
   user: User;
+  pokemons: { myPokemons: string[] };
 };
 export interface StoreContextProps {
   store: Store;
@@ -11,7 +12,11 @@ export interface StoreContextProps {
   setStore: React.Dispatch<React.SetStateAction<Store>>;
 }
 
-export const INITIAL_STORE = { sessions: { isSignIn: false }, user: {} as User };
+export const INITIAL_STORE: Store = {
+  sessions: { isSignIn: false },
+  user: {} as User,
+  pokemons: { myPokemons: [] }
+};
 
 export const StoreContext = React.createContext<StoreContextProps>({
   store: INITIAL_STORE,
