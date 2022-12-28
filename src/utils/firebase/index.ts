@@ -2,12 +2,12 @@
 export * from './hooks/useAddDocumentMutation';
 export * from './hooks/useAuthState';
 export * from './hooks/useCollection';
+export * from './hooks/useGetUsersCollection';
 export * from './hooks/useLogInWithEmailAndPasswordMutation';
 export * from './hooks/useLogInWithGoogleMutation';
 export * from './hooks/useRegisterWithEmailAndPasswordMutation';
 export * from './hooks/useSignoutMutation';
 export * from './hooks/useUpdateUsersMutation';
-export * from './hooks/useUsersCollection';
 
 // requests
 export * from './requests/addDocument';

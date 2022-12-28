@@ -13,7 +13,6 @@ export const updateUsersCollection = async (
   try {
     await updateDoc(docRef, { myPokemons: arrayUnion(...data.myPokemons) });
   } catch (e) {
-    console.log('eeee', e);
     await setDoc(docRef, data);
   }
 };

@@ -1,30 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Button, PokemonStats, PokemonTypes } from '@common';
 import { useRequestPokemonQuery } from '@utils/api';
 import { useStore } from '@utils/contexts';
-import {
-  useAddDocumentMutation,
-  useUpdateUsersMutation,
-  useUsersCollection
-} from '@utils/firebase';
+import { useAddDocumentMutation, useUpdateUsersMutation } from '@utils/firebase';
 
 import styles from './Pokemon.module.css';
 
 interface PokemonProps {
   pokemonName: string;
+  pokemonId: number;
   onClose: () => void;
 }
 
-export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
+export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, pokemonId, onClose }) => {
   const {
     sessions,
     user,
-    pokemons: { myPokemons }
+    data: { myPokemons },
+    setStore
   } = useStore();
-
-  const { userData } = useUsersCollection(user.uid, myPokemons);
 
   const addDocumentMutation = useAddDocumentMutation({
     options: {
@@ -52,7 +48,7 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
 
   if (isError) return <h5>Error!</h5>;
   if (isLoading) return <h5>Loading...</h5>;
-  console.log(userData);
+
   return (
     <div className={styles.pokemon}>
       <div className={styles.pokemon_header}>
@@ -78,17 +74,26 @@ export const Pokemon: React.FC<PokemonProps> = ({ pokemonName, onClose }) => {
       {sessions.isSignIn && (
         <Button
           isLoading={addDocumentMutation.isLoading}
-          onClick={() =>
+          onClick={() => {
             updateUsersMutation.mutate({
               collectionName: 'users',
               userId: user.uid,
-              data: { myPokemons: [pokemonName] }
-            })
-          }
+              data: { myPokemons: [{ id: pokemonId, name: pokemonName }] }
+            });
+            const pokemonContains = myPokemons.some((item) => item.id === pokemonId);
+            if (!pokemonContains) {
+              setStore({
+                data: { myPokemons: [...myPokemons, { id: pokemonId, name: pokemonName }] }
+              });
+            }
+          }}
         >
           Add to favorites
         </Button>
       )}
+      <div>
+        {myPokemons && myPokemons.map((item: any) => <div key={item.name}>{item.name}</div>)}
+      </div>
     </div>
   );
 };

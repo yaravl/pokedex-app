@@ -17,7 +17,7 @@ export const useUpdateUsersMutation = (
   options: UseRequestMutationQuery<typeof updateUsersCollection> = {}
 ) =>
   useMutation(
-    ['setCollectionToFirebase'],
+    ['updateUsersCollectionFirebase'],
     (params: UseUpdateUsersMutation) =>
       updateUsersCollection(params.collectionName, params.userId, params.data),
     options.options
