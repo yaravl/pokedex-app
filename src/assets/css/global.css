@@ -43,4 +43,16 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+@screen lg {
+    #root {
+        @apply grid grid-cols-[auto_13rem_minmax(0,65rem)_auto];
+    }
+}
+
+
+
+.ReactQueryDevtools {
+    position: absolute;
+}
+
 @tailwind utilities;

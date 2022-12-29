@@ -1,3 +1,9 @@
-.container {
-    @apply flex justify-end gap-2;
+.pokemon_types {
+    @apply flex-1;
+
+    div {
+        @apply text-center ;
+        @apply first:font-medium first:text-xl;
+        @apply last:text-gray-500 last:text-sm;
+    }
 }

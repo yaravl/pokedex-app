@@ -49,3 +49,5 @@ export const PokemonEvolutionChain: React.FC<PokemonEvolutionChainProps> = ({ id
     </div>
   );
 };
+
+// TODO: правильно показывать предметы нужные для эволюции

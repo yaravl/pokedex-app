@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 import styles from './PokemonHero.module.css';
+import {PokemonTypes} from "@common/pokemon";
 
 interface PokemonHeroProps {
   pokemon: Pokemon;
@@ -30,22 +31,7 @@ export const PokemonHero: React.FC<PokemonHeroProps> = ({ pokemon }) => (
     </div>
 
     <div className={styles.characteristics}>
-      <div>
-        <div className='mb-1 flex justify-center gap-2'>
-          {pokemon.types.map((type) => (
-            <div
-              key={type.type.name}
-              className={classNames('h-3 w-3 rounded-full', `bg-elm-${type.type.name}`)}
-            />
-          ))}
-        </div>
-
-        <div className='text-sm capitalize'>
-          {pokemon.types[0].type.name}
-          {pokemon.types[1] && ` / ${pokemon.types[1].type.name}`}
-        </div>
-        <div>Type</div>
-      </div>
+      <PokemonTypes types={pokemon.types}/>
       <div>
         <div>{pokemon.weight / 10} kg</div>
         <div>Weight</div>

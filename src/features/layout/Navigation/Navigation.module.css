@@ -1,0 +1,33 @@
+.nav {
+    @apply fixed bottom-0 w-full bg-white border-t border-gray-200 z-10;
+
+    &_container {
+        @apply flex justify-between;
+    }
+
+    li {
+        @apply flex-1;
+    }
+
+    a {
+        @apply flex w-full h-full items-center gap-2 p-1.5 text-center flex-col text-sm;
+    }
+
+    svg {
+        @apply text-2xl;
+    }
+}
+
+@screen lg {
+    .nav {
+        @apply relative col-start-2 h-full min-h-[calc(100vh-20rem)] border-r border-t-0  bg-transparent;
+
+        &_container {
+            @apply sticky block top-20 py-10 pr-5;
+        }
+
+        a {
+            @apply p-3 text-left mt-0.5 flex-row text-base;
+        }
+    }
+}

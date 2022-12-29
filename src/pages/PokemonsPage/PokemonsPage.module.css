@@ -1,5 +1,5 @@
 .pokemons_container {
-    @apply grid grid-cols-3 gap-4
+    @apply grid grid-cols-[repeat(auto-fit,minmax(15.25rem,1fr))] gap-4
 }
 
 .pokemon {

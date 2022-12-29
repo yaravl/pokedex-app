@@ -1,0 +1,33 @@
+.pokemon {
+    @apply relative grid grid-cols-[auto_1fr_128px] grid-rows-[auto_auto_1fr_auto] w-full rounded p-4 shadow-md overflow-hidden;
+
+    &:hover {
+        img {
+            @apply scale-125;
+        }
+    }
+
+    &_header {
+        @apply flex justify-between mb-5 col-span-3 z-[1];
+
+        h2 {
+            @apply capitalize text-xl font-medium;
+        }
+
+        div {
+            @apply text-gray-700;
+        }
+    }
+
+    .pokemon_types {
+        @apply col-span-2 -mr-4 self-end  justify-self-start z-[1] w-[102px];
+    }
+    img {
+        @apply z-[1] transition duration-500;
+    }
+
+    .pokemon_bg {
+        @apply absolute w-48 h-48 rounded-tl-full rounded-br-full z-0 bottom-[-50px] right-[-40px];
+    }
+}
+

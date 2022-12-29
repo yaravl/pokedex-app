@@ -1,8 +1,8 @@
 .header {
-    @apply shadow-md fixed top-0 left-0 w-screen bg-white z-10;
+    @apply col-span-full shadow-md sticky top-0 left-0 bg-white z-20;
 
     &_container {
-        @apply container flex container py-2 justify-between;
+        @apply max-w-[80rem] py-2 flex ml-auto mr-auto pl-4 pr-4 justify-between h-20;
     }
 
     &_left {

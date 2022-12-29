@@ -7,7 +7,7 @@ import { ROUTES } from '@utils/constants';
 import styles from './Header.module.css';
 
 export const Header: React.FC = () => (
-  <div className={styles.header}>
+  <header className={styles.header}>
     <div className={styles.header_container}>
       <div className={styles.header_left}>
         <img className={styles.header_logo} src={logo} alt='logo' />
@@ -15,10 +15,10 @@ export const Header: React.FC = () => (
       </div>
 
       <div className={styles.header_navigation}>
-        <Link to='/pokemon/1'>-Pokemon-</Link>
-        <Link to={ROUTES.POKEMONS}>Pokemons</Link>
+        <p>Github</p>
         <Link to={ROUTES.PROFILE}>Profile</Link>
+        <p>Theme</p>
       </div>
     </div>
-  </div>
+  </header>
 );
